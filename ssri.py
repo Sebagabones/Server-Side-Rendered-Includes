@@ -6,7 +6,7 @@ import re
 import shutil
 import fileinput
 import readline                 # I like having inputs work well with navigation - sue me
-import glob
+import sys
 # from termcolor import colored
 
 # Coloured Outputs Constants
@@ -15,9 +15,8 @@ CGREEN   = '\33[92m'
 CYELLOW  = '\33[93m'
 CEND     = '\33[0m'
 
-def getListOfFilesToSearchDir(inputDir, outputDir):
+def getListOfFilesToSearchDir(inputDir, outputDir, noWarnings, verbose):
      files = ([], [])           # first list is of orginal location, second is of new location
-     global noWarnings
      global numWarnings
 
      for (dirpath, subdirs, filenames) in walk(inputDir): # breaks without dirnames, so that's staying here I guess lmao
@@ -29,7 +28,7 @@ def getListOfFilesToSearchDir(inputDir, outputDir):
                          print(f"{CRED}Warning, you are about to overwrite {outputDir[0]+ '/' + name}, do you want to continue (if you did not intend to do please look at the -o option)? y/N{CEND}")
                          print(f"{CYELLOW}If you want to continue but have each output file end with '.ssri' to prevent overwriting template files press s{CEND}")
                          print(f"{CYELLOW}(to turn off this alert pass --no-warnings){CEND}")
-                         print(f"{CRED}If you want to turn off all warnings for the rest of this run press a {CEND}")
+                         print(f"{CRED}If you want to turn off this warning for the rest of this run press a {CEND}")
                          continueVal = str(input('').strip() or "N")
                          if(continueVal == "y" or continueVal == "Y" or continueVal == "yes" or continueVal == "Yes"):
                               print(f"{CRED}{name} will be overwritten{CEND}")
@@ -65,20 +64,19 @@ def getListOfFilesToSearchDir(inputDir, outputDir):
                          # print(f"adding {os.path.join(dirPathNewOutput, name)} to files")
      verboseMsg = "The following files will be checked for include statements:\n"
      verboseMsg += ', '.join(map(str, files[0]))
-     verbosePrint(verboseMsg)
-     verboseMsg = "\nThe following files will be the output files:\n"
+     # verbosePrint(verboseMsg)
+     verboseMsg += "\nThe following files will be the output files:\n"
      verboseMsg += ', '.join(map(str, files[1]))
-     verbosePrint(verboseMsg)
-     verbosePrint("\n")
+     verboseMsg += "\n"
+
+     verbosePrint(verbose, verboseMsg)
+
 
 
      return(files)
 
 
-def getListOfFilesToSearchFiles(inputFile, outputDir, templates):
-     global numWarnings
-     global safeMode
-     global noWarnings
+def getListOfFilesToSearchFiles(inputFile, outputDir, templates, noWarnings, numWarnings, verbose):
      filesToSearch = ([],[])
      lastGoodFile = "."
      safeMode = False
@@ -95,7 +93,7 @@ def getListOfFilesToSearchFiles(inputFile, outputDir, templates):
                print(f"{CRED}Warning, you are about to overwrite {filePathOut}, do you want to continue (if you did not intend to do please look at the -o option)? y/N{CEND}")
                print(f"{CYELLOW}If you want to continue but have each output file end with '.ssri' to prevent overwriting template files press S{CEND}")
                print(f"{CYELLOW}(to turn off this alert pass --no-warnings){CEND}")
-               print(f"{CRED}If you want to turn off all warnings for the rest of this run press a {CEND}")
+               print(f"{CRED}If you want to turn off this warning for the rest of this run press a {CEND}")
                continueVal = str(input('').strip() or "N")
                if(continueVal == "y" or continueVal == "Y" or continueVal == "yes" or continueVal == "Yes"):
                     print(f"{CRED}{filePathOut} will be overwritten{CEND}")
@@ -130,21 +128,20 @@ def getListOfFilesToSearchFiles(inputFile, outputDir, templates):
      files = filesToSearch
      verboseMsg = "The following files will be checked for include statements:\n"
      verboseMsg += ', '.join(map(str, files[0]))
-     verbosePrint(verboseMsg)
+     verbosePrint(verbose, verboseMsg)
      verboseMsg = "\nThe following files will be the output files:\n"
      verboseMsg += ', '.join(map(str, files[1]))
-     verbosePrint(verboseMsg)
+     verbosePrint(verbose, verboseMsg)
      verboseMsg = "The directory for templates is " + templatesDir[0] +"\n"
-     verbosePrint(verboseMsg)
-     return(filesToSearch, templatesDir)
+     verbosePrint(verbose, verboseMsg)
+     return(filesToSearch, templatesDir, numWarnings)
 
 
-def checkFileForIncludes(fileName, inputDir): # inputdir is placeholder for location of template files - not anymore lol, now it is template dir
+def checkFileForIncludes(fileName, inputDir, numFilesChanged, verbose): # inputdir is placeholder for location of template files - not anymore lol, now it is template dir
      # print(f"Now reading in {fileName}")
      fileRead = open((fileName), "r")
      fileReadIn = fileRead.readlines()
      includeFiles = ([],[])     # first list is text found, second is the text to replace it with
-     global numFilesChanged
      global numWarnings
 
      for line in fileReadIn:
@@ -152,13 +149,13 @@ def checkFileForIncludes(fileName, inputDir): # inputdir is placeholder for loca
      fileRead.close()
      if(len(includeFiles[0]) != 0):
           verboseMsg = f"{fileName} has match(es) with {includeFiles[0]}"
-          verbosePrint(verboseMsg)
+          verbosePrint(verbose, verboseMsg)
           copyOfInitialIncludesFile = includeFiles[0].copy()
           for matchReg in copyOfInitialIncludesFile:
                fileToRead = re.search(r'"(.+)"', matchReg).group().strip('"')
 
-               verboseMsg = f"We want to read in file: {inputDir + '/' + fileToRead}"
-               verbosePrint(verboseMsg)
+               verboseMsg = f"Will attempt to be reading in in file: {inputDir + '/' + fileToRead}"
+               verbosePrint(verbose, verboseMsg)
                if not os.path.exists(inputDir + '/' + fileToRead):
                     print(f"{CRED}! Could not find file: {inputDir +'/' + fileToRead}, which was requested by {fileName} - make sure you are following all the rules laid out about directory locations specfied in --help {CEND}\n")
                     numWarnings += 1
@@ -171,7 +168,8 @@ def checkFileForIncludes(fileName, inputDir): # inputdir is placeholder for loca
                # print(textToCopyIn)
                includeFiles[1].append(textToCopyIn)
                textIn.close()
-          verbosePrint("\n")
+          verbosePrint(verbose, "\n")
+
      for index in range(len(includeFiles[0])):
           with fileinput.FileInput(fileName, inplace=True) as files:
                for line in files:
@@ -182,27 +180,25 @@ def checkFileForIncludes(fileName, inputDir): # inputdir is placeholder for loca
      elif(len(includeFiles[0]) == 1):
           print(f"{CGREEN}✓ {fileName} successfully completed with {len(includeFiles[0])} template added in {CEND}")
           numFilesChanged += 1
+     return(numFilesChanged)
 
 
-
-def copyFilesToNewLocation(newFileLocation, oldFileLocation):
+def copyFilesToNewLocation(newFileLocation, oldFileLocation, fileCreatedCounter):
      # print(f"copying files from {oldFileLocation} to  {newFileLocation}")
      # print(f"newFileLocation {newFileLocation}")
-     global fileCreatedCounter
      fileCreatedCounter += 1
      os.makedirs(os.path.dirname(newFileLocation), exist_ok=True)
      shutil.copy2(oldFileLocation, newFileLocation)
+     return(fileCreatedCounter)
 
 
-def verbosePrint(msg):
-     global verbose
+def verbosePrint(verbose, msg):
      if verbose:
           print(msg)
      return
 
 
-
-def main():
+def parse_args(args):
      parser = argparse.ArgumentParser()
      parser.add_argument("-d", "--dir", action="store_true", help="Go through specified directory (recursively)")
      parser.add_argument("inputFile", type=str, nargs='+', help="The input file to parse, if -d is specified than this should be the directory to start searching in - if you are specifying the files without using -d please be aware that the file outputs will be in OUTPUT/filename, directory structure will not be kept. The files (if not using -d) must also all be the in same directory if you do not specify a directory for templates (otherwise the directory the last file given is in will be used for template searching)")
@@ -210,25 +206,28 @@ def main():
      parser.add_argument("-o", "--output", default=".", nargs=1, type=str, help="The directory for output files to be placed (default is current directory)")
      parser.add_argument("--no-warnings",action="store_true" , help="Don't print a warning when you are about to overwrite your existing files")
      parser.add_argument("-v", "--verbose",action="store_true" , help="Increased printing what the script is doing at any time")
+     return(parser.parse_args(args))
 
      # Future plan, make a flag that copies all files/dirs in directory over, not just .html files
      # Also in future maybe add in an ablity to nest include files in include files - this might already work tbh, or at least there is a janky way to do it lol
      # Also do verbosity at some point
 
-     args = parser.parse_args()
+
+
+def main():
+     args = parse_args(sys.argv[1:])
 
      templatesDir=args.inputFile         # This *should* be fine?
 
-     global fileCreatedCounter
+
      fileCreatedCounter = 0
-     global noWarnings
+
      noWarnings = args.no_warnings
-     global verbose
      verbose = args.verbose
-     global numFilesChanged     # Number of files that have had include statements with modifications
+     numFilesChanged = 0     # Number of files that have had include statements with modifications
      global numWarnings
      numWarnings = 0
-     numFilesChanged = 0
+
      os.makedirs(os.path.dirname(args.output[0] + "/"), exist_ok=True)
      filesToSearch = None
      if args.dir:
@@ -242,11 +241,11 @@ def main():
                     print(f"{CYELLOW}! {directory} is a file, so skipping it{CEND}")
                     numWarnings += 1
                     continue
-               filesToSearch = getListOfFilesToSearchDir(directory, args.output)
+               filesToSearch = getListOfFilesToSearchDir(directory, args.output, noWarnings, verbose)
 
                # print(f"list of files to read is {filesToSearch[0]}")
      else:
-          filesToSearch, templatesDir = getListOfFilesToSearchFiles(args.inputFile, args.output, args.templates_dir)
+          filesToSearch, templatesDir, numWarnings = getListOfFilesToSearchFiles(args.inputFile, args.output, args.templates_dir, noWarnings, numWarnings, verbose)
 
      if(filesToSearch == None):
           print(f"{CRED}! No files were able to be scanned, exiting {CEND}")
@@ -254,11 +253,11 @@ def main():
      for fileSearchIndex in range(len(filesToSearch[0])):
                # First copy files to new location
                # print(filesToSearch)
-               copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex])
+               fileCreatedCounter = copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex], fileCreatedCounter)
                if args.templates_dir is None: # Get templates from same dir as rest of html files
-                    checkFileForIncludes(filesToSearch[1][fileSearchIndex], templatesDir[0])
+                    numFilesChanged = checkFileForIncludes(filesToSearch[1][fileSearchIndex], templatesDir[0], numFilesChanged, verbose)
                else:
-                    checkFileForIncludes(filesToSearch[1][fileSearchIndex], args.templates_dir[0])
+                    numFilesChanged = checkFileForIncludes(filesToSearch[1][fileSearchIndex], args.templates_dir[0], numFilesChanged, verbose)
      if(numWarnings == 0):
           printColour = CGREEN
           includeText = "✓"
