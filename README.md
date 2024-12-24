@@ -12,7 +12,7 @@ The include statement is simply a html comment on a line where you want the enti
 Finally, I have only tested this on Linux, it probably works on MacOS, and probably doesn't work on Windows.
 
  ```help
- usage: ssri.py [-h] [-d] [-t TEMPLATES_DIR] [-o OUTPUT] [--no-warnings] inputFile [inputFile ...]
+ usage: ssri [-h] [-d] [-t TEMPLATES_DIR] [-o OUTPUT] [--no-warnings] [-v] inputFile [inputFile ...]
 ```
 
 ### Installation
@@ -27,6 +27,7 @@ There is a simple example setup in the `Example/` folder, which shows a simple w
 `-t` specifies the directory to grab the templates from, if it is not provided it grabs templates from the input directory (or if the input was not a directory it uses the current directory).
 `-o` is the directory to output the generated files to, if not provided it using the current directory.
 `--no-warnings` silences any warnings, and just runs without worrying if it overwrites any files.
+`-v` explains what the script is doing, turns on verbose mode
 
 #### Tips
 By putting the output files into their own designated folder, so as long as you setup your webserver correctly, you can prevent the templates and source files from being accessed, by setting your webserver's root folder to be output folder.
@@ -51,7 +52,7 @@ I mean - the main use case was for my website lol. That said, it could be useful
 As mentioned above. I do want to add an an option that copies the all the contents of the entire input folder to the output folder, and only updates the HTML.
 Likewise, adding an argument that allows you to select with files types you want to search for include statements in is planned, as it would allow use with `.jsx` files, and possibly CSS files ect.
 Another future addition would be to add in the ablity to nest include statements in template files. This *might* already work, but I have not tested it, and there is the potential to get stuck in a endless loop, so for the time being I would not recommend include statements inside templates. 
-Oh, and of course, I still need to add different verbosity levels at some point. 
+ 
 
 If there is demand/I have interest I may make this fully compatible with Apache SSI's, however for the time that isn't the case - if someone has good documentation on SSI options please let me know about it/send it to me, easiest way to do that is probably to raise an issue :)
 
