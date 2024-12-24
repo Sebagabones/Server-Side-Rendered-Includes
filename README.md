@@ -1,4 +1,4 @@
-#Server Side Rendered Includes
+# Server Side Rendered Includes
 ## Apache SSI's but like, simple
 
 If you are old, or idk, use apache and don't wanna use something more than good old html and css but still want to template/include html from other files in your html you will have probably heard of Apache Server Side Includes.
