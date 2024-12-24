@@ -4,7 +4,7 @@ So, my inital pages are in `src/`, with my template file in `templates/`, which 
 
 So, if we run `ssri -d src -o pages -t templates`, we create a directory called `pages`, which contains the output files.
 
-You should be able to see the difference, but basically this just sets up a way to quickly copy template HTML components into various pages.
+You should be able to see the difference, but basically this just sets up a way to quickly copy template HTML components into various pages. If you want to setup the before example as shown below, simply remove the `pages` directory. 
 
 ### Before
 
