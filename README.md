@@ -6,7 +6,7 @@ Now, I have not been able to find a guide to get SSI's working for me, and after
 
  ## Usage:
  ```help
- usage: ssi.py [-h] [-d] [-t TEMPLATES_DIR] [-o OUTPUT] [--no-warning] inputFile [inputFile ...]
+ usage: ssri.py [-h] [-d] [-t TEMPLATES_DIR] [-o OUTPUT] [--no-warning] inputFile [inputFile ...]
 ```
 
 If there is demand/I have interest I may make this fully compatible with Apache SSI's, however for the time being the format for includes is `<!--#include file="file.html"-->` where file.html is a html file in same directory as the file (this will possibly be changed in the future if I get around to it to support more options)

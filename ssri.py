@@ -20,27 +20,29 @@ def getListOfFilesToSearch(inputDir, outputDir):
           for name in filenames:
                if(name.endswith(".html")):
                     files[0].append(os.path.join(dirpath, name))
-                    # print(f"adding {os.path.join(dirpath, name)} to files")
+                    print(f"adding {os.path.join(dirpath, name)} to files")
                     # print(outputDir[0]+ "/" + str(name))
                     files[1].append((outputDir[0]+ "/" + str(name)))
      return(files)
           # dirs.extend(dirnames)
           # print(f"adding {dirnames} to dirs")
 def checkFileForIncludes(fileName, inputDir): # inputdir is placeholder for location of template files
-     # print(f"Now reading in {fileName}")
+     print(f"Now reading in {fileName}")
      fileRead = open((fileName), "r")
      fileReadIn = fileRead.readlines()
      includeFiles = ([],[])     # first list is text found, second is the text to replace it with
      for line in fileReadIn:
           # will be searching for things of format <!--#include file="file.html"--> where file.html is a html file in same dir
           # in the future I could expand this to be a different dir for templates possibly  Actually now that i think abt it so long as path is relative to where this was run it shoooould work
-          includeFiles[0].extend(re.findall(r'<!--#include file=".+\.html"-->', line))
+          includeFiles[0].extend(re.findall(r'<!-- *#include file=".+\.html" *-->', line))
      fileRead.close()
      if(len(includeFiles[0]) != 0):
           print(f"{fileName} has a match(es) with {includeFiles[0]}")
           copyOfInitialIncludesFile = includeFiles[0].copy()
           for matchReg in copyOfInitialIncludesFile:
-               fileToRead = matchReg[19:-4]
+               fileToRead = re.search(r'"(.+)"', matchReg).group().strip('"')
+               print(fileToRead)
+               # fileToRead = matchReg[19:-4]
                # print(f"We want to read in file: {inputDir + '/' + fileToRead}")
                if not os.path.exists(inputDir + '/' + fileToRead):
                     print(colored(f"Could not find file: {inputDir +'/' + fileToRead}, which was requested by {fileName} - make sure you are following all the rules laid out about directory locations specfied in --help \n", "red"))
@@ -57,7 +59,12 @@ def checkFileForIncludes(fileName, inputDir): # inputdir is placeholder for loca
           with fileinput.FileInput(fileName, inplace=True) as files:
                for line in files:
                     print(line.replace(includeFiles[0][index], includeFiles[1][index]), end='')
-                    
+     if(len(includeFiles[0]) > 1):
+          print(colored(f"✓ {fileName} successfully completed with {len(includeFiles[0])} templates added in", "green"))
+     elif(len(includeFiles[0]) == 1):
+          print(colored(f"✓ {fileName} successfully completed with {len(includeFiles[0])} template added in", "green"))
+
+
      # return(1)
 
 def copyFilesToNewLocation(newFileLocation, oldFileLocation):
@@ -83,7 +90,15 @@ if __name__ == "__main__":
      filesToSearch = ([],[])
      templatesDir = "."         # This *should* be fine?
 
+     if os.path.exists(args.output[0]) and args.no_warning == False:
+          print(colored(f"Warning, output location {args.output[0]} already exists - if you continue any files in that location with the same name as those that are being scanned for include statements will be overwritten.", "red"))
+          print(colored("Continue? y/N", "red"))
+          continueVal = str(input('').strip() or "N")
+          if(not (continueVal == "y" or continueVal == "Y" or continueVal == "yes" or continueVal == "Yes")):
+               print(colored("Okay, exiting", "green"))
+               exit()
 
+     os.makedirs(os.path.dirname(args.output[0] + "/"), exist_ok=True)
 
      if args.dir:
           for directory in args.inputFile:
