@@ -1,0 +1,40 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SSRI</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+     .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: purple;
+    color: white;
+    text-align: center;
+     }
+    </style>
+
+</head>
+
+<body>
+    <center>
+        <h2>Welcome to SSRI</h2>
+        <p>Let's say we had a footer below, that we wanted to be able to include in a bunch of different HTML files (in
+            this simple example we are including it in <code>index.html</code> and <code>secondaryPage.html</code> which is <a href="secondaryPage.html">here</a>)</p>
+        <p>We could copy the HTML code for my footer into each file, but what if we have a lot of files, and what happens if we need
+            to update the footer later on? Seems annoying and like it would take a while.</p>
+        <p>Instead, we could just put the code into a file called "footer.html", and put a comment in our html file
+            (<code>&lt!-- include file="footer.html" --&gt</code>), that includes it in our file for us. This means it shares some of the same benefits of regular SSI, one of which is if something goes wrong, it will only be displayed as a comment, and hence won't be shown on
+            the webpage, but will be show in the dev tools, helping with debugging.</p>
+
+    </center>
+    <!-- #include file="footer.html" -->
+
+</body>
+
+</html>
