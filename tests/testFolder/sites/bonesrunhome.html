@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="color-scheme" content="light dark" />
+	<title>bonesrunhome</title>
+	<link href="/static/favicon.ico" rel="icon" type="image/x-icon" />
+	<meta charset="UTF-8" />
+	<link href="/static/styles.css" rel="stylesheet" />
+	<!-- Theme Checker before load -->
+	<script src="js/anotherThemeChanger.js"></script>
+</head>
+<!-- Minimal theme switcher -->
+<script src="/js/minimal-theme-switcher.js"></script>
+
+<body class="container">
+	<header>
+		<nav class="container">
+			<ul id="theme-picker">
+				<li><a href="#" data-theme-switcher="light">Light</a></li>
+				<li><a href="#" data-theme-switcher="dark">Dark</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main class="container">
+		<h2>The server that runs a whole lot of nothing</h2>
+		<p>
+			bonesrunhome is an IBM x3550 M4 - it used to sit on my desk in
+			my bedroom, however it is now in my rack in the living room, meaning I no longer have a lovely 1U space
+			heater.
+		</p>
+		<p>
+			I wound up with it as UCC (UWA's
+			<a href="https://ucc.asn.au">University Computer Club</a>) was throwing
+			out a bunch of them due to the unfortunate habit they had of kamikazing
+			themselves. Thankfully there was one remaining that hadn't blown up and
+			with a firmware update it should hopefully not blow up anytime soon :P
+		</p>
+		<p>
+			I have since somehow wound up with a bunch more of these - they were for sale when I went to pickup the
+			BladeCenter, and I couldn't say no (I should have).
+			They are not in use now, and I can't see myself using them anytime <s>soon</s> ever - but they have had
+			their firmware updated so they shouldn't blow up anymore! If you live in Perth and want some (I don't know
+			why you would, they cost me $25, but at this point I would probably give you one if you asked nicely lol)
+		</p>
+		<div class="syntax">
+			<p>
+				Anyway, back to bonesrunhome, which currently has two Xeon E5-2697 v2's (24 total cores at 3.50GHz) and
+				384GB of RAM with EndeavourOS as it's operating system. It used to live in my bedroom on my desk -
+				which, considering it is a 1U server, was as painful as it sounds.
+				However, after buying a <a href="myRack.html">rack</a> it has been moved into my living room (sorry
+				housemates). It currently runs "most" of my stuff on virtual machines (all setup through libvirt),
+				including my
+				FreeIPA setup, and the webserver hosting this, and my git server.
+				You are welcome to try seeing my git server, just run
+				<code><span class="sh">ssh</span> git.mahoosively.gay</code> in your terminal (I have no idea if this
+				works with Windows terminal as I avoid Windows as much as I can). I don't think I have really bothered
+				to use this much for my public/collaborative, although I will hopefullly be using it more soon (group
+				projects would not have been fans of me not using Github lol). I have setup a 4 drive raid-10 setup with
+				mdadm to store the repos, so hopefully it will be reliable enough to use. If you want a bit more info on
+				what the git server is, I am using <a href="https://charm.sh/blog/self-hosted-soft-serve/">Soft
+					Serve</a>
+
+			</p>
+		</div>
+	</main>
+		<footer class="container">
+		<a href="/"> Main Page </a>
+	</footer>
+
+
+
+</body>
+
+</html>

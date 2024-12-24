@@ -1,0 +1,115 @@
+
+    <pre><span></span><span class="p">(</span><span class="nv">doom!</span>
+<span class="w">       </span><span class="nb">:completion</span>
+<span class="w">       </span><span class="c1">;;company           ; the ultimate code completion backend</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">corfu</span><span class="w"> </span><span class="nv">+orderless</span><span class="w"> </span><span class="nv">+dabbrev</span><span class="w"> </span><span class="nv">+info</span><span class="w"> </span><span class="nv">+history</span><span class="w"> </span><span class="nv">+indexed</span><span class="w"> </span><span class="nv">+echo</span><span class="w"> </span><span class="nv">+cape</span><span class="p">)</span><span class="w">  </span><span class="c1">; complete with cap(f), cape and a flying feather!</span>
+<span class="w">       </span><span class="c1">;;helm              ; the *other* search engine for love and life</span>
+<span class="w">       </span><span class="c1">;;ido               ; the other *other* search engine...</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">ivy</span><span class="w"> </span><span class="nv">+childframe</span><span class="w"> </span><span class="nv">+prescient</span><span class="w"> </span><span class="nv">+icons</span><span class="p">)</span><span class="w">               </span><span class="c1">; a search engine for love and life</span>
+<span class="w">       </span><span class="c1">;;vertico           ; the search engine of the future</span>
+
+<span class="w">       </span><span class="nb">:ui</span>
+<span class="w">       </span><span class="c1">;;deft              ; notational velocity for Emacs</span>
+<span class="w">       </span><span class="nv">doom</span><span class="w">              </span><span class="c1">; what makes DOOM look the way it does</span>
+<span class="w">       </span><span class="nv">doom-dashboard</span><span class="w">    </span><span class="c1">; a nifty splash screen for Emacs</span>
+<span class="w">       </span><span class="c1">;;doom-quit         ; DOOM quit-message prompts when you quit Emacs</span>
+<span class="w">       </span><span class="c1">;;(emoji +unicode)  ; 🙂</span>
+<span class="w">       </span><span class="nv">hl-todo</span><span class="w">           </span><span class="c1">; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW</span>
+<span class="w">       </span><span class="c1">;;indent-guides     ; highlighted indent columns</span>
+<span class="w">       </span><span class="c1">;;ligatures         ; ligatures and symbols to make your code pretty again</span>
+<span class="w">       </span><span class="c1">;;minimap           ; show a map of the code on the side</span>
+<span class="w">       </span><span class="nv">modeline</span><span class="w">          </span><span class="c1">; snazzy, Atom-inspired modeline, plus API</span>
+<span class="w">       </span><span class="c1">;;nav-flash         ; blink cursor line after big motions</span>
+<span class="w">       </span><span class="c1">;;neotree           ; a project drawer, like NERDTree for vim</span>
+<span class="w">       </span><span class="nv">ophints</span><span class="w">           </span><span class="c1">; highlight the region an operation acts on</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">popup</span><span class="w"> </span><span class="nv">+defaults</span><span class="p">)</span><span class="w">   </span><span class="c1">; tame sudden yet inevitable temporary windows</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">tabs</span><span class="w"> </span><span class="nv">+centaur-tabs</span><span class="p">)</span><span class="w">              </span><span class="c1">; a tab bar for Emacs</span>
+<span class="w">       </span><span class="nv">treemacs</span><span class="w">          </span><span class="c1">; a project drawer, like neotree but cooler</span>
+<span class="w">       </span><span class="c1">;;unicode           ; extended unicode support for various languages</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">vc-gutter</span><span class="w"> </span><span class="nv">+pretty</span><span class="p">)</span><span class="w"> </span><span class="c1">; vcs diff in the fringe</span>
+<span class="w">       </span><span class="nv">vi-tilde-fringe</span><span class="w">   </span><span class="c1">; fringe tildes to mark beyond EOB</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">window-select</span><span class="w"> </span><span class="nv">+switch-window</span><span class="p">)</span><span class="w">     </span><span class="c1">; visually switch windows</span>
+<span class="w">       </span><span class="nv">workspaces</span><span class="w">        </span><span class="c1">; tab emulation, persistence &amp; separate workspaces</span>
+<span class="w">       </span><span class="c1">;;zen               ; distraction-free coding or writing</span>
+
+<span class="w">       </span><span class="nb">:editor</span>
+<span class="w">       </span><span class="c1">;;(evil +everywhere); come to the dark side, we have cookies</span>
+<span class="w">       </span><span class="nv">file-templates</span><span class="w">    </span><span class="c1">; auto-snippets for empty files</span>
+<span class="w">       </span><span class="nv">fold</span><span class="w">              </span><span class="c1">; (nigh) universal code folding</span>
+<span class="w">       </span><span class="c1">;;(format +onsave)  ; automated prettiness</span>
+<span class="w">       </span><span class="c1">;;god               ; run Emacs commands without modifier keys</span>
+<span class="w">       </span><span class="c1">;;lispy             ; vim for lisp, for people who don&#39;t like vim</span>
+<span class="w">       </span><span class="nv">multiple-cursors</span><span class="w">  </span><span class="c1">; editing in many places at once</span>
+<span class="w">       </span><span class="c1">;;rotate-text       ; cycle region at point between text candidates</span>
+<span class="w">       </span><span class="nv">snippets</span><span class="w">          </span><span class="c1">; my elves. They type so I don&#39;t have to</span>
+<span class="w">       </span><span class="c1">;;word-wrap         ; soft wrapping with language-aware indent</span>
+
+<span class="w">       </span><span class="nb">:emacs</span>
+<span class="w">       </span><span class="nv">dired</span><span class="w">             </span><span class="c1">; making dired pretty [functional]</span>
+<span class="w">       </span><span class="nv">electric</span><span class="w">          </span><span class="c1">; smarter, keyword-based electric-indent</span>
+<span class="w">       </span><span class="c1">;;eww               ; the internet is gross</span>
+<span class="w">       </span><span class="c1">;;ibuffer           ; interactive buffer management</span>
+<span class="w">       </span><span class="nv">undo</span><span class="w">              </span><span class="c1">; persistent, smarter undo for your inevitable mistakes</span>
+<span class="w">       </span><span class="nv">vc</span><span class="w">                </span><span class="c1">; version-control and Emacs, sitting in a tree</span>
+
+<span class="w">       </span><span class="nb">:term</span>
+<span class="w">       </span><span class="c1">;;term              ; basic terminal emulator for Emacs</span>
+<span class="w">       </span><span class="nv">vterm</span><span class="w">             </span><span class="c1">; the best terminal emulation in Emacs</span>
+
+<span class="w">       </span><span class="nb">:checkers</span>
+<span class="w">       </span><span class="nv">syntax</span><span class="w">              </span><span class="c1">; tasing you for every semicolon you forget</span>
+<span class="w">       </span><span class="c1">;;(spell +flyspell) ; tasing you for misspelling mispelling</span>
+<span class="w">       </span><span class="c1">;;grammar           ; tasing grammar mistake every you make</span>
+
+<span class="w">       </span><span class="nb">:tools</span>
+<span class="w">       </span><span class="c1">;;collab            ; buffers with friends</span>
+<span class="w">       </span><span class="nv">debugger</span><span class="w">          </span><span class="c1">; FIXME stepping through code, to help you add bugs</span>
+<span class="w">       </span><span class="c1">;;direnv</span>
+<span class="w">       </span><span class="p">(</span><span class="nf">eval</span><span class="w"> </span><span class="nv">+overlay</span><span class="p">)</span><span class="w">     </span><span class="c1">; run code, run (also, repls)</span>
+<span class="w">       </span><span class="nv">lookup</span><span class="w">              </span><span class="c1">; navigate your code and its documentation</span>
+<span class="w">       </span><span class="nv">lsp</span><span class="w">               </span><span class="c1">; M-x vscode</span>
+<span class="w">       </span><span class="nv">magit</span><span class="w">             </span><span class="c1">; a git porcelain for Emacs</span>
+<span class="w">       </span><span class="c1">;;make              ; run make tasks from Emacs</span>
+
+
+<span class="w">       </span><span class="nb">:os</span>
+<span class="w">       </span><span class="c1">;;(:if (featurep :system &#39;macos) macos)  ; improve compatibility with macOS</span>
+<span class="w">       </span><span class="nv">tty</span><span class="w">               </span><span class="c1">; improve the terminal Emacs experience</span>
+
+<span class="w">       </span><span class="nb">:lang</span>
+<span class="w">       </span><span class="c1">;;agda              ; types of types of types of types...</span>
+<span class="w">       </span><span class="c1">;;beancount         ; mind the GAAP</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">cc</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">         </span><span class="c1">; C &gt; C++ == 1</span>
+<span class="w">       </span><span class="c1">;;clojure           ; java with a lisp</span>
+<span class="w">       </span><span class="c1">;;elm               ; care for a cup of TEA?</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">emacs-lisp</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">        </span><span class="c1">; drown in parentheses</span>
+<span class="w">       </span><span class="c1">;;erlang            ; an elegant language for a more civilized age</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">go</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">         </span><span class="c1">; the hipster dialect</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">graphql</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">    </span><span class="c1">; Give queries a REST</span>
+<span class="w">       </span><span class="c1">;;(haskell +lsp)    ; a language that&#39;s lazier than I am</span>
+<span class="w">       </span><span class="c1">;;hy                ; readability of scheme w/ speed of python</span>
+<span class="w">       </span><span class="c1">;;idris             ; a language you can depend on</span>
+<span class="w">       </span><span class="c1">;;json              ; At least it ain&#39;t XML</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">java</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">       </span><span class="c1">; the poster child for carpal tunnel syndrome</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">javascript</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">        </span><span class="c1">; all(hope(abandon(ye(who(enter(here))))))</span>
+<span class="w">       </span><span class="c1">;;julia             ; a better, faster MATLAB</span>
+<span class="w">       </span><span class="c1">;;lua               ; one-based indices? one-based indices</span>
+<span class="w">       </span><span class="nv">markdown</span><span class="w">          </span><span class="c1">; writing docs for people to ignore</span>
+<span class="w">       </span><span class="c1">;;nim               ; python + lisp at the speed of c</span>
+<span class="w">       </span><span class="c1">;;nix               ; I hereby declare &quot;nix geht mehr!&quot;</span>
+<span class="w">       </span><span class="c1">;;ocaml             ; an objective camel</span>
+<span class="w">       </span><span class="nv">org</span><span class="w">               </span><span class="c1">; organize your plain life in plain text</span>
+<span class="w">       </span><span class="c1">;;php               ; perl&#39;s insecure younger brother</span>
+<span class="w">       </span><span class="c1">;;plantuml          ; diagrams for confusing people more</span>
+<span class="w">       </span><span class="c1">;;graphviz          ; diagrams for confusing yourself even more</span>
+<span class="w">       </span><span class="c1">;;purescript        ; javascript, but functional</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">python</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">            </span><span class="c1">; beautiful is better than ugly</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">web</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">               </span><span class="c1">; the tubes</span>
+
+<span class="w">       </span><span class="p">(</span><span class="nv">default</span><span class="w"> </span><span class="nv">+bindings</span><span class="w"> </span><span class="nv">+smartparens</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">package-native-compile</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="c1">;; Set garbage collection threshold to 1GB.</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">gc-cons-threshold</span><span class="w"> </span><span class="p">(</span><span class="nf">*</span><span class="w"> </span><span class="mi">2048</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="mi">750</span><span class="p">))</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">read-process-output-max</span><span class="w"> </span><span class="p">(</span><span class="nf">*</span><span class="w"> </span><span class="mi">2048</span><span class="w"> </span><span class="mi">2048</span><span class="p">))</span><span class="w"> </span><span class="c1">;; 1mb
+</pre>

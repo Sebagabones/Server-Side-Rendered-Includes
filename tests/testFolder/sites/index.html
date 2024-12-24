@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="color-scheme" content="light dark" />
+	<title>Bones Home</title>
+	<link href="/static/favicon.ico" rel="icon" type="image/x-icon" />
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.violet.min.css" />
+	<link href="/static/styles.css" rel="stylesheet" />
+
+	<noscript>
+		<style>
+			#theme-picker {
+				display: none;
+			}
+		</style>
+	</noscript>
+
+<!-- Theme Checker before load -->
+<script src="js/anotherThemeChanger.js"></script>
+</head>
+<!-- Minimal theme switcher -->
+<script src="js/minimal-theme-switcher.js"></script>
+<!-- Preloading images -->
+<script src="js/preloadImages.js"></script>
+
+<body class="container">
+	<header>
+		<nav class="container">
+			<ul id="theme-picker">
+				<li><a href="#" data-theme-switcher="light">Light</a></li>
+				<li><a href="#" data-theme-switcher="dark">Dark</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main class="container">
+		<h1>... Look, an attempt was made</h1>
+		<br>
+		<!-- <h2>
+							So, uh, I guess this is my website, front end isn't what I would call a passion of mine lol
+						</h2> -->
+		<h3>An about me:</h3>
+
+		<p>
+			Heya! I'm Seb, and my pronouns are they/them.
+			I'm studying
+			computer science at UWA, and this is my attempt at a (low effort) personal website.
+		</p>
+		<h4>Interests</h4>
+		<p>
+			So, in case it wasn't obvious, I kinda enjoy messing around with computers. I am very much the stereotypical
+			Linux user, and while I do enjoy making things "pretty" (I mean, I <i>am</i> a contributor to Catppuccin), I
+			usually
+			enjoy High Performance Computing, as well as Data Formatting and Automating anything I can (I have 100% spent
+			more time automating something than it would have taken to just do it manually). I also go crazy for
+			anything with
+			Linux (the more absurd the better). I am also currently (2024) the Vice-President of the <a
+				href="https://ucc.asn.au">University Computer Club</a> and take great joy in the amount of
+			<s>sensible</s> projects the club gets up to (ask me about Coffinfish sometime!).
+
+		</p>
+
+		<h4>Skills</h4>
+		<p>
+			So, I am pretty proficient in using Python and C++ (though I will begrudgingly use C if needed), and while I
+			am probably a bit rusty, I did enjoy Java when I last used it in uni. Sadly, I have written a bunch of code
+			in JavaScript (including a <s>lovely</s> flavour called Google Apps Script), and so I am perfectly happy to
+			write code in that, although I do prefer Typescript. If I am forced to write a bash script, I will
+			unironically use Amber instead, until it doesn't work lol. I have done a database class where I learnt SQL,
+			however I am probably a little rusty. Obviously I can use HTML and CSS lol - I have dabbled with a bit of
+			React in the form of RedwoodJS and a tad of Deno (and no, I am not turning this page into a React page
+			lmao).
+		</p>
+		<p>
+			I am perfectly comfortable using Numpy and Matplotlib in Python, and I have done network programming, as
+			well as using MPICH and OpenMP for multi-threading and multi-node computing in C/C++, and enjoyed it
+			immensely.
+		</p>
+		<p>I am <i>incredibly</i> at ease at using the command line on Unix systems lol - I am not exaggerating when I
+			say I am more comfortable and proficient at using (and fixing/trouble shooting) Linux systems compared to
+			Windows systems. I take great
+			joy in running the most cooked and cursed setups as my daily driver, and I am currently using Bedrock Linux
+			with an EndeavourOS stratum and an Alpine Linux stratum </p>
+		<div class="projects">
+			<h4>A list of my (constantly) changing projects</h4>
+			<details open>
+				<summary>Software</summary>
+				<p><i>Full warning, the following will almost immediately be out of date, but I'll do my best to keep it
+						updated - if in doubt, check my <a href="https://github.com/Sebagabones">Github</a>. </i></p>
+				<ul>
+					<li>
+						A RedwoodJS website for better management of <a href="https://ucc.asn.au">UCC</a>'s member VM's,
+						replacing the Proxmox UI. This started out as a Pulumi project to speed up VM creation, and
+						while there may still be part of that in the CI side of it, I am now planning to probably try to
+						just use the Proxmox API.
+					</li>
+					<li>
+						Theming for KDE's Labplot, to add Catppuccin themes to it - this will hopefully be finished
+						soon<sup>tm</sup>. In true fashion, it all works, I am just running into the classic issue where
+						finishing the last 10% of the documentation is harder than the rest of it was. If you want to
+						try it out,
+						my repository is <a href=https://github.com/Sebagabones/labplot>here</a>
+					</li>
+					<li>
+						The <a href="https://github.com/catppuccin/vimium">Vimium Catppuccin port</a> which I maintain
+						(which, to be honest, has needed very little maintenance so far).
+					</li>
+					<li>
+						My <a href="emacsFiles.html">Emacs config files</a> - apparently I am weird because I used Emacs
+						in the terminal (hence the corfu terminal package). I use Doom Emacs because I am lazy, which is
+						why my files may look
+						different to yours (yes this isn't really related to Software but I was running out of
+						things to include that weren't uni related).
+					</li>
+					<li>
+						Which, speaking of university assignments, a particular favourite of mine was the second
+						assessment in High Performance Computing - while I probably <i>shouldn't</i> openly show my code
+						due to personal doubts on the unit content changing, I can still show off my <a
+							href="report.html">report</a>!
+						Be warned, this is genuinely one of the daftest ways
+						I have spent my time.
+
+					</li>
+				</ul>
+			</details>
+
+			<details open>
+				<summary>Hardware</summary>
+				<p><i>This is mostly up to date, however the pages linked to from here may not be yet</i></p>
+				<ul>
+					<li>
+						My current daily driver is (sadly) not very exciting from a hardware perspective - it is an Asus
+						Zenbook 13, which has me trapped in its OLED clutches. However, finding the hardware too
+						sensible for my standards, my solution was to make the Operating System as cursed as possible,
+						which is how I wound up running <a href="https://bedrocklinux.org/">Bedrock Linux</a> with an
+						EndeavourOS stratum along with an Alpine Linux stratum (and I have also installed the Nix
+						package
+						manager too of course). This has a <i>very</i> Catppuccin themed i3 setup, although sadly
+						overall it mostly "just works<sup>tm</sup>" too often for my liking.
+					</li>
+					<li>
+						An X270 thinkpad that is running FreeBSD, which I have been slowly
+						upgrading with a new IPS FHD screen, new larger batteries, a 1TB
+						Samsung M.2 SSD and 16GB of ram. Alas, after writing some incredibly fun scripts to avoid the
+						forsaken
+						BD-PROCHOT, I have pretty much stopped using it lol.
+					</li>
+					<li>
+						An x201 thinkpad that is running Alpine Linux with i3 (yes I know -
+						I'm falling down the rabbit hole even more) - this has been upgraded
+						as far as it can go (8 GB of ram let's go). This has also been phased out of regular use, mostly
+						due to
+						the screen being borderline painful to use.
+					</li>
+
+					<li>
+						An IBM x3200 M3 server (<a href="bonescallhome.html">bonescallhome</a>) which is no longer
+						hosting
+						this
+						webpage - in fact, this is no longer even at my house! I found it too sensible, and so in true
+						fashion
+						for myself, I gave it to a friend.
+					</li>
+
+					<li>
+						An IBM x3550 M4 server (<a href="bonesrunhome.html">bonesrunhome</a>)
+						which is running a few VMs (including a debian VM which is dedicated
+						to web-hosting)
+					</li>
+
+					<li>
+						A project that has now been put on the back burner: a Toshiba T3200 -
+						this has a whopping 4MBs of ram, with a 40MB hard drive. Currently it
+						isn't booting, and so my focus is to fix/replace the floppy disk drive
+						(this is very much on the back burner on account of it now no longer
+						turning on lol - unsure why, but it seems I may have let the magic
+						smoke out- hopefully I'll fix it one day)
+					</li>
+					<li>
+						A ThinkPad 770z running Tiny Core Linux. This has had it's hard drive (an IBM <s>Deskstar</s>
+						Deathstar
+						that had started rattling) replaced with an SD card, and was an adventure in finding a Distro
+						that
+						supported such an old CPU. I setup some sort of window manager on it, iirc IceWM, and have
+						promptly
+						not
+						used it since.
+					</li>
+					<li>
+						An IBM x3650 M2 (<a href="bonescrawlhome.html">bonescrawlhome</a>). This is not and will never
+						be
+						used -
+						if you live in perth and want it hmu
+						lmao.
+					</li>
+
+					<li>
+						Another (short-lived) acquisition is an IBM
+						<a href="Power7.html"> Power 750 Express.</a>
+					</li>
+
+					<li>
+						<a href="bonesboundhome.html">bonesboundhome</a> an IBM x3650 M4 that is running as my secondary
+						server
+						alongside <a href="bonesrunhome.html">bonesrunhome</a>.
+					</li>
+
+					<li>
+						I also have an IBM bladecenter H, but I have no idea what I will ever
+						use it for - this may be destined to die a horrible death soon, mostly due to the fact that <a
+							href="https://ucc.asn.au">UCC</a> tries to
+						murder me whenever it starts up.
+					</li>
+
+					<li>
+						<a href="myRack.html" class="rackCall">The server rack</a> that is currently heating
+						my living room.
+					</li>
+				</ul>
+			</details>
+		</div>
+	</main>
+	<footer class="container">
+		<p><a href="contact.html"> Contact me</a></p>
+	</footer>
+</body>
+
+</html>

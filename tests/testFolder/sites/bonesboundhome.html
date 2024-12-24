@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="color-scheme" content="light dark" />
+	<title>Bones Home</title>
+	<link href="/static/favicon.ico" rel="icon" type="image/x-icon" />
+	<meta charset="UTF-8" />
+	<link href="/static/styles.css" rel="stylesheet" />
+	<noscript>
+		<style>
+			#theme-picker {
+				display: none;
+			}
+		</style>
+	</noscript>
+	<!-- Theme Checker before load -->
+	<script src="js/anotherThemeChanger.js"></script>
+</head>
+<!-- Minimal theme switcher -->
+<script src="/js/minimal-theme-switcher.js"></script>
+
+<body class="container">
+	<header>
+		<nav class="container">
+			<ul id="theme-picker">
+				<li><a href="#" data-theme-switcher="light">Light</a></li>
+				<li><a href="#" data-theme-switcher="dark">Dark</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="container">
+		<h2>The almost sensible server</h2>
+		<p>bonesboundhome is an IBM x3650 M4</p>
+		<p>
+			I grabbed it from some random business off marketplace, and with a
+			firmware update it hopefuly won't blow up anytime soon lol
+		</p>
+
+		<p>
+			It currently has two Xeon E5-2650's and 384GB of RAM with EndeavourOS (I still do not know why I did
+			this,
+			one day I'll install Alpine)
+			as an operating system. This was running my git server, however at the time of writing that isn't
+			running
+			right now, due to NetworkManager disliking me, and me disliking NetworkManager enough to not be bothered
+			to
+			fix it right now. This was running my NFS server, with NVME storage added in via PCIE,
+			which was mostly setup so I could run MPICH at home for my HPC unit (the class had run out of credit on
+			Setonix and I wasn't going to waste the opportunity for the homelab to actually be useful for once
+			lmao).
+		</p>
+
+		<p>
+			I also have written a custom fan curve for this in C - which I will
+			eventually add to my github - although I did write a version of it in
+			python for bonesrunhome, which is alive and well on my github. Arguably the Python implementation is much
+			more sensible, as it isn't doing much more than just running as a script that calls a system call.
+		</p>
+	</main>
+		<footer class="container">
+		<a href="/"> Main Page </a>
+	</footer>
+
+</body>
+
+</html>
