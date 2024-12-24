@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="color-scheme" content="light dark" />
+	<title>MyRack</title>
+	<link href="/static/favicon.ico" rel="icon" type="image/x-icon" />
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.violet.min.css" />
+
+	<link href="/static/styles.css" rel="stylesheet" />
+	<!-- Theme Checker before load -->
+	<script src="js/anotherThemeChanger.js"></script>
+</head>
+<!-- Minimal theme switcher -->
+<script src="/js/minimal-theme-switcher.js"></script>
+
+
+<body class="container">
+	<header>
+		<nav class="container">
+			<ul>
+				<li><a href="#" data-theme-switcher="light">Light</a></li>
+				<li><a href="#" data-theme-switcher="dark">Dark</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main class="container">
+		<h2>My amazing rack</h2>
+		<p>
+			So I now have a server rack! To be honest it <em>is</em> considerably
+			larger than I was expecting, but otherwise it's quite a nice server rack - although it was quite loud when I
+			picked it up lmao.
+		</p>
+
+		<div class="grid spacing">
+			<div class="figDiv">
+				<figure>
+					<img class="fullFrontalRack" src="static/fullFrontalRack.JPG"
+						alt="The current setup of the rack, as seen from the front with the door open" />
+				</figure>
+			</div>
+
+			<div class="racklist">
+				<h3>A topology of the rack</h3>
+
+				<p>In order from top to bottom</p>
+				<ol>
+					<li>You can <i>just</i> see the fan control knobs in the top left, and my KVM switch in the middle
+					</li>
+					<li>The network switch (yes that is an enby flag)</li>
+					<li>My slide out KVM (this is an IBM model, so it has the old style thinkpad keyboard!) </li>
+					<li><a href="bonesboundhome.html">bonesboundhome</a></li>
+					<li><a href="bonesrunhome.html">bonesrunhome</a></li>
+					<li>And finally, a friends server</li>
+				</ol>
+				<div class="notRackList">
+					<p>
+						After having an ex-housemate ask me to turn it off because it was too loud, I realised other
+						people may
+						not
+						be as deaf as me and that I should probably do something about the noise.
+
+						My grand scheme, (which, to be honest, turned out quite well) was to tackle the noise issue in
+						three
+						parts:
+					</p>
+				</div>
+
+			</div>
+		</div>
+
+
+
+		<h5>Part A: Sound Deadening</h5>
+		<p>
+			Realising that a 1U server makes a considerable amount of noise, I knew I had to do my best to try stop
+			noise from escaping out of the server rack itself. Initially, I was planning to only use acoustic foam,
+			however on a trip back home to the Northen Territory, I found some road noise deadening, designed to go
+			inside car panels
+			(Series Land
+			Rovers used to be a hyperfixation of mine before I moved away for uni, and so of course I had noise
+			deadening laying around lol). I posted this back to Perth, and covered the inside of the rack with it
+			(including the
+			rear side, which was meant to be left open for hot air to be pushed out the back - more on this later).
+		</p>
+		<p>
+			I then went and bought a few panels of acoustic egg-carton shaped foam, which I then glued over the sound
+			deadening, and pretty much anywhere in the rack that I could. My note for anyone following along at home, I
+			would recommend using good quality glue - if I were to redo this, I would want to use a different glue than
+			what I used, as
+			I spent a long time reattaching panels.
+		</p>
+		<p>
+			This did help significantly, but I wasn't finished yet...
+		</p>
+		<h5>Part B: My Biggest Fan(s)</h5>
+		<p>
+			So, remember how I mentioned I covered the back of the server rack with sound deadening? Yes? Great - well,
+			you're not <i>meant</i> to do that.
+			Thankfully, the designers of this rack foresaw my idiocy, and chucked two whopping great 240 volt fans into
+			a box on the top of the rack. This was great, they moved a heap of air, however, there was one small
+			problem. They were, really, really, loud. Ironically, this meant that my housemate at the time was not my
+			biggest fan.
+		</p>
+		<p>
+			But! There was a solution! The rack thankfully had mounting holes for regular PC 120mm fans! Now, you may be
+			saying, "But Seb, how would you power those? Your servers don't have PWM headers, and even if they did, you
+			would have to run them out of the case" - and, dear reader, you would be right. Except, if you were saying
+			this, you forgot about the magic of janky electronics off of eBay. It turns out, you can buy a 240 volt to
+			12 volt molex adapter, which you can then plug into a molex to sata power adapter. You can then plug this
+			into a PCIE fan hub/controller, which you can plug the fans into. Would I recommend doing this? No - please
+			don't do this. Have I had any fires yet? No, but I do live every day in fear (which may just be the GAD but
+			moving
+			on).
+		</p>
+		<p>
+			So, the fans I ended up going with were some high speed be quiet! Silent Wings 4, which seem to provide
+			enough airflow (which was needed due to me covering up the back of the rack), while being significantly
+			quieter.
+		</p>
+		<h5>Part C: Fan Control</h5>
+		<p>
+			And so we get to the final part - actually making the hardware in the rack be quieter.
+		</p>
+		<p>
+			My first improvement was to add Noctua fans to my old switch - yes, these 40mm fans costed more than the
+			switch did, but on the upside, they are much quieter than the Delta fans that were on it (although it did
+			involve me immediately loosing the warranty on the fans I had just bought due to having to rewire the
+			connections as the switch did not use standard PWM headers lol)
+		</p>
+		<p>
+			Then, I stumbled upon an amazing set of reddit posts, that described how to slow down the fans in IBM x3550
+			M4 servers (this also works in IBM x3650 M4 models) with ipmitool. Using this, I wrote a script in Python to
+			monitor the temps of the server, and change the fan speeds accordingly - this is a very janky solution, and
+			was done a long time ago by me - I promise I have improved significantly since lol, but in saying that, it
+			works, and I am lazy, so I haven't gone back and rewritten it.
+			I also wrote this in C, however, that arguably is not much more sensible, and honestly I would say to create
+			your own more sensible implementation. If you really wanna see my code, you can view the repo <a
+				href="https://github.com/Sebagabones/Shutting_Up_My_IBM">here</a>. Jankiness aside, it has worked well,
+			and the servers are running a lot quieter.
+		</p>
+
+
+	</main>
+		<footer class="container">
+		<a href="/"> Main Page </a>
+	</footer>
+
+
+
+</body>
+
+</html>

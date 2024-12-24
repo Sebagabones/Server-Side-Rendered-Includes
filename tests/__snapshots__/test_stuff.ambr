@@ -1,0 +1,90 @@
+# serializer version: 1
+# name: test_dir
+  Namespace(dir=True, inputFile=['dir'], templates_dir=None, output='.', no_warnings=False, verbose=False)
+# ---
+# name: test_infile
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output='.', no_warnings=False, verbose=False)
+# ---
+# name: test_readfilesDir
+  tuple(
+    list([
+      'testFolder/templates/config.el.html',
+      'testFolder/templates/footer.html',
+      'testFolder/templates/packages.el.html',
+      'testFolder/templates/init.el.html',
+      'testFolder/staging/index.html',
+      'testFolder/staging/myRack.html',
+      'testFolder/staging/bonescrawlhome.html',
+      'testFolder/staging/bonesrunhome.html',
+      'testFolder/staging/bonesboundhome.html',
+      'testFolder/staging/report.html',
+      'testFolder/staging/packages.el.html',
+      'testFolder/staging/template.html',
+      'testFolder/staging/bonescallhome.html',
+      'testFolder/staging/404.html',
+      'testFolder/staging/emacsFiles.html',
+      'testFolder/staging/Power7.html',
+      'testFolder/staging/contact.html',
+      'testFolder/staging/init.el.html',
+      'testFolder/sites/index.html',
+      'testFolder/sites/myRack.html',
+      'testFolder/sites/bonescrawlhome.html',
+      'testFolder/sites/bonesrunhome.html',
+      'testFolder/sites/bonesboundhome.html',
+      'testFolder/sites/report.html',
+      'testFolder/sites/template.html',
+      'testFolder/sites/bonescallhome.html',
+      'testFolder/sites/404.html',
+      'testFolder/sites/emacsFiles.html',
+      'testFolder/sites/Power7.html',
+      'testFolder/sites/contact.html',
+    ]),
+    list([
+      'outputLocation/templates/config.el.html',
+      'outputLocation/templates/footer.html',
+      'outputLocation/templates/packages.el.html',
+      'outputLocation/templates/init.el.html',
+      'outputLocation/staging/index.html',
+      'outputLocation/staging/myRack.html',
+      'outputLocation/staging/bonescrawlhome.html',
+      'outputLocation/staging/bonesrunhome.html',
+      'outputLocation/staging/bonesboundhome.html',
+      'outputLocation/staging/report.html',
+      'outputLocation/staging/packages.el.html',
+      'outputLocation/staging/template.html',
+      'outputLocation/staging/bonescallhome.html',
+      'outputLocation/staging/404.html',
+      'outputLocation/staging/emacsFiles.html',
+      'outputLocation/staging/Power7.html',
+      'outputLocation/staging/contact.html',
+      'outputLocation/staging/init.el.html',
+      'outputLocation/sites/index.html',
+      'outputLocation/sites/myRack.html',
+      'outputLocation/sites/bonescrawlhome.html',
+      'outputLocation/sites/bonesrunhome.html',
+      'outputLocation/sites/bonesboundhome.html',
+      'outputLocation/sites/report.html',
+      'outputLocation/sites/template.html',
+      'outputLocation/sites/bonescallhome.html',
+      'outputLocation/sites/404.html',
+      'outputLocation/sites/emacsFiles.html',
+      'outputLocation/sites/Power7.html',
+      'outputLocation/sites/contact.html',
+    ]),
+  )
+# ---
+# name: test_templates_dir
+  Namespace(dir=True, inputFile=['dir'], templates_dir=['templates'], output='.', no_warnings=False, verbose=False)
+# ---
+# name: test_templates_infile
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=['template'], output='.', no_warnings=False, verbose=False)
+# ---
+# name: test_templates_output_dir
+  Namespace(dir=True, inputFile=['dir'], templates_dir=['templates'], output=['output'], no_warnings=False, verbose=False)
+# ---
+# name: test_templates_output_infile
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=['template'], output=['output'], no_warnings=False, verbose=False)
+# ---
+# name: test_verbose
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output='.', no_warnings=False, verbose=True)
+# ---

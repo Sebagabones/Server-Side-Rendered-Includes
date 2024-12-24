@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="color-scheme" content="light dark" />
+	<title>The Famed HPC Report</title>
+	<link href="/static/favicon.ico" rel="icon" type="image/x-icon" />
+	<meta charset="UTF-8" />
+	<link href="/static/styles.css" rel="stylesheet" />
+	<!-- Theme Checker before load -->
+	<script src="js/anotherThemeChanger.js"></script>
+</head>
+<!-- Minimal theme switcher -->
+<script src="/js/minimal-theme-switcher.js"></script>
+
+<body class="container">
+	<header>
+		<nav>
+			<ul>
+				<li><a href="#" data-theme-switcher="light">Light</a></li>
+				<li><a href="#" data-theme-switcher="dark">Dark</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<h3> A Reasonably Decent Example of My Brain In Action</h3>
+		<br>
+		<p>
+			I was just going to link to the pdf itself, however I realised wanted to talk about the report itself too
+			lmao. If you just want to see the report, it's available <a
+				href="/static/theIdioticTimeDistributionOfAReport.pdf"> here</a> (with my group-mate's name redacted as
+			I haven't asked him for permission, along with both of our student ID's), otherwise, get ready for some
+			rambling.
+		</p>
+		<p>
+			Firstly, yes, I went <i>slightly</i> overkill with the Catppuccin theming, but I did really enjoy relearning
+			Matplotlib (which, yes, was also themed lol).
+		</p>
+		<div class="syntax">
+			<p>
+				My workflow for this was <i>slightly</i> insane, as my group-mate, who was writing up the code
+				implementation
+				explanation
+				did not want to learn Latex, and so I had to find a way to convert Markdown to Latex, while getting the
+				theming to work properly.    <br />
+				Thankfully, pandoc exists, and so<code><span class="sh">pandoc </span><span class="o">--listings </span> <span class="o">-f
+				</span><span >markdown </span><span class="o">-t </span><span >latex </span><span class="o">-o </span>
+				<span >report.tex report.md </span></code>
+			</p>
+		</div>
+		<div class="syntax">
+			<p>
+				Ironically, I didn't actually use
+				<ins>listings</ins> in the end report, as I found the <ins>minted</ins> package with <a
+					href="https://pygments.org/">Pygments</a> to work a bit better,
+				and (importantly) already had a Catppuccin theme! So, the next step was to (tediously) go through the
+				generated tex file, replacing every <ins>listed</ins>
+				call with an equivalent <ins>minted</ins> version (a rough example would be to replace
+				<code><span class="k">\passthrough</span><span class="nb">{</span><span class="k">\lstinline</span>!make release!<span class="nb">}</span></code>
+				with
+				<code><span></span><span class="k">\textbf</span><span class="nb">{</span><span class="k">\mintinline</span><span class="nb">{</span>bash<span class="nb">}{</span>make release<span class="nb">}}</span></code>).
+				Also, huge thank you to Yukai Chou, who wrote a lovely latex function I borrowed to get some parts of
+				minted
+				to work (code <a href="https://github.com/gpoore/minted/issues/288#issuecomment-1501540637"> here</a>)!
+			</p>
+		</div>
+		<div class="syntax">
+
+		<p>
+			Once this, and the rest of the small things needed to touch up the document (so many things) had been done,
+			I could then
+			simply generate a pdf from the tex file using
+			<code> <span class="sh">pdflatex</span><span class="o"> --shell-escape </span> <span> report.tex</span> </code>. If you want to see what my tex file looked like at the end
+			of it all, I have attached it <a href="/static/theDreadedTexFile.tex">here</a>.
+		</p>
+		</div>
+		<p>
+			You may be wondering, surely this must have taken hours, just to get a nice colour-scheme on a report... and
+			you would be right to wonder, I genuinely do not know why I put myself through this. On the upside, I guess
+			I get to ramble about it here, and we <i>did</i> get a good grade for presentation (to be honest, we got
+			100% in the entire assessment, so I am going to tell myself without the theming we might have only got 14/15
+			or something). Oh, and no, the hours spent do not include setting up Matplotlib to produce graphs that
+			matched the colour-scheme
+			- that actually wasn't too bad, and using Matplotlib was easier for me because it meant I was able to create
+			the graphs using code,
+			which worked well for my brain lol.
+		</p>
+		<p>
+
+
+		</p>
+	</main>
+		<footer class="container">
+		<a href="/"> Main Page </a>
+	</footer>
+
+
+
+</body>
+
+</html>

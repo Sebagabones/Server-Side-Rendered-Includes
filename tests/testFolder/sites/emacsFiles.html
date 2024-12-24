@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="color-scheme" content="light dark" />
+	<title>What, you thought I would use Vim?</title>
+	<link href="/static/favicon.ico" rel="icon" type="image/x-icon" />
+	<meta charset="UTF-8" />
+	<noscript>
+		<style>
+			#theme-picker {
+				display: none;
+			}
+		</style>
+	</noscript>
+	<link href="/static/styles.css" rel="stylesheet" />
+	<!-- Theme Checker before load -->
+	<script src="js/anotherThemeChanger.js"></script>
+</head>
+<!-- Minimal theme switcher -->
+<script src="/js/minimal-theme-switcher.js"></script>
+
+<body class="container">
+	<header>
+		<nav>
+			<ul>
+				<li><a href="#" data-theme-switcher="light">Light</a></li>
+				<li><a href="#" data-theme-switcher="dark">Dark</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<h3>I don't use Vim, wild right?</h3>
+		<p>Weirdly, I don't use Catppuccin for my Emacs colour-scheme, instead I use Doom's version of Tokyo-Night</p>
+
+		<p>Anyway, my config files, put here mostly for me if I am being honest, so that I can easily setup a new system
+			from scratch without <i>that</i> much effort</p>
+		<div class="syntax">
+			<p> First, the <code>init.el</code> and <code>packages.el</code> files:</p>
+<details open>
+    <summary>
+        <h4 style="display:inline"><code>init.el</code>:</h4>
+    </summary>
+	
+    <pre><span></span><span class="p">(</span><span class="nv">doom!</span>
+<span class="w">       </span><span class="nb">:completion</span>
+<span class="w">       </span><span class="c1">;;company           ; the ultimate code completion backend</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">corfu</span><span class="w"> </span><span class="nv">+orderless</span><span class="w"> </span><span class="nv">+dabbrev</span><span class="w"> </span><span class="nv">+info</span><span class="w"> </span><span class="nv">+history</span><span class="w"> </span><span class="nv">+indexed</span><span class="w"> </span><span class="nv">+echo</span><span class="w"> </span><span class="nv">+cape</span><span class="p">)</span><span class="w">  </span><span class="c1">; complete with cap(f), cape and a flying feather!</span>
+<span class="w">       </span><span class="c1">;;helm              ; the *other* search engine for love and life</span>
+<span class="w">       </span><span class="c1">;;ido               ; the other *other* search engine...</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">ivy</span><span class="w"> </span><span class="nv">+childframe</span><span class="w"> </span><span class="nv">+prescient</span><span class="w"> </span><span class="nv">+icons</span><span class="p">)</span><span class="w">               </span><span class="c1">; a search engine for love and life</span>
+<span class="w">       </span><span class="c1">;;vertico           ; the search engine of the future</span>
+
+<span class="w">       </span><span class="nb">:ui</span>
+<span class="w">       </span><span class="c1">;;deft              ; notational velocity for Emacs</span>
+<span class="w">       </span><span class="nv">doom</span><span class="w">              </span><span class="c1">; what makes DOOM look the way it does</span>
+<span class="w">       </span><span class="nv">doom-dashboard</span><span class="w">    </span><span class="c1">; a nifty splash screen for Emacs</span>
+<span class="w">       </span><span class="c1">;;doom-quit         ; DOOM quit-message prompts when you quit Emacs</span>
+<span class="w">       </span><span class="c1">;;(emoji +unicode)  ; 🙂</span>
+<span class="w">       </span><span class="nv">hl-todo</span><span class="w">           </span><span class="c1">; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW</span>
+<span class="w">       </span><span class="c1">;;indent-guides     ; highlighted indent columns</span>
+<span class="w">       </span><span class="c1">;;ligatures         ; ligatures and symbols to make your code pretty again</span>
+<span class="w">       </span><span class="c1">;;minimap           ; show a map of the code on the side</span>
+<span class="w">       </span><span class="nv">modeline</span><span class="w">          </span><span class="c1">; snazzy, Atom-inspired modeline, plus API</span>
+<span class="w">       </span><span class="c1">;;nav-flash         ; blink cursor line after big motions</span>
+<span class="w">       </span><span class="c1">;;neotree           ; a project drawer, like NERDTree for vim</span>
+<span class="w">       </span><span class="nv">ophints</span><span class="w">           </span><span class="c1">; highlight the region an operation acts on</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">popup</span><span class="w"> </span><span class="nv">+defaults</span><span class="p">)</span><span class="w">   </span><span class="c1">; tame sudden yet inevitable temporary windows</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">tabs</span><span class="w"> </span><span class="nv">+centaur-tabs</span><span class="p">)</span><span class="w">              </span><span class="c1">; a tab bar for Emacs</span>
+<span class="w">       </span><span class="nv">treemacs</span><span class="w">          </span><span class="c1">; a project drawer, like neotree but cooler</span>
+<span class="w">       </span><span class="c1">;;unicode           ; extended unicode support for various languages</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">vc-gutter</span><span class="w"> </span><span class="nv">+pretty</span><span class="p">)</span><span class="w"> </span><span class="c1">; vcs diff in the fringe</span>
+<span class="w">       </span><span class="nv">vi-tilde-fringe</span><span class="w">   </span><span class="c1">; fringe tildes to mark beyond EOB</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">window-select</span><span class="w"> </span><span class="nv">+switch-window</span><span class="p">)</span><span class="w">     </span><span class="c1">; visually switch windows</span>
+<span class="w">       </span><span class="nv">workspaces</span><span class="w">        </span><span class="c1">; tab emulation, persistence &amp; separate workspaces</span>
+<span class="w">       </span><span class="c1">;;zen               ; distraction-free coding or writing</span>
+
+<span class="w">       </span><span class="nb">:editor</span>
+<span class="w">       </span><span class="c1">;;(evil +everywhere); come to the dark side, we have cookies</span>
+<span class="w">       </span><span class="nv">file-templates</span><span class="w">    </span><span class="c1">; auto-snippets for empty files</span>
+<span class="w">       </span><span class="nv">fold</span><span class="w">              </span><span class="c1">; (nigh) universal code folding</span>
+<span class="w">       </span><span class="c1">;;(format +onsave)  ; automated prettiness</span>
+<span class="w">       </span><span class="c1">;;god               ; run Emacs commands without modifier keys</span>
+<span class="w">       </span><span class="c1">;;lispy             ; vim for lisp, for people who don&#39;t like vim</span>
+<span class="w">       </span><span class="nv">multiple-cursors</span><span class="w">  </span><span class="c1">; editing in many places at once</span>
+<span class="w">       </span><span class="c1">;;rotate-text       ; cycle region at point between text candidates</span>
+<span class="w">       </span><span class="nv">snippets</span><span class="w">          </span><span class="c1">; my elves. They type so I don&#39;t have to</span>
+<span class="w">       </span><span class="c1">;;word-wrap         ; soft wrapping with language-aware indent</span>
+
+<span class="w">       </span><span class="nb">:emacs</span>
+<span class="w">       </span><span class="nv">dired</span><span class="w">             </span><span class="c1">; making dired pretty [functional]</span>
+<span class="w">       </span><span class="nv">electric</span><span class="w">          </span><span class="c1">; smarter, keyword-based electric-indent</span>
+<span class="w">       </span><span class="c1">;;eww               ; the internet is gross</span>
+<span class="w">       </span><span class="c1">;;ibuffer           ; interactive buffer management</span>
+<span class="w">       </span><span class="nv">undo</span><span class="w">              </span><span class="c1">; persistent, smarter undo for your inevitable mistakes</span>
+<span class="w">       </span><span class="nv">vc</span><span class="w">                </span><span class="c1">; version-control and Emacs, sitting in a tree</span>
+
+<span class="w">       </span><span class="nb">:term</span>
+<span class="w">       </span><span class="c1">;;term              ; basic terminal emulator for Emacs</span>
+<span class="w">       </span><span class="nv">vterm</span><span class="w">             </span><span class="c1">; the best terminal emulation in Emacs</span>
+
+<span class="w">       </span><span class="nb">:checkers</span>
+<span class="w">       </span><span class="nv">syntax</span><span class="w">              </span><span class="c1">; tasing you for every semicolon you forget</span>
+<span class="w">       </span><span class="c1">;;(spell +flyspell) ; tasing you for misspelling mispelling</span>
+<span class="w">       </span><span class="c1">;;grammar           ; tasing grammar mistake every you make</span>
+
+<span class="w">       </span><span class="nb">:tools</span>
+<span class="w">       </span><span class="c1">;;collab            ; buffers with friends</span>
+<span class="w">       </span><span class="nv">debugger</span><span class="w">          </span><span class="c1">; FIXME stepping through code, to help you add bugs</span>
+<span class="w">       </span><span class="c1">;;direnv</span>
+<span class="w">       </span><span class="p">(</span><span class="nf">eval</span><span class="w"> </span><span class="nv">+overlay</span><span class="p">)</span><span class="w">     </span><span class="c1">; run code, run (also, repls)</span>
+<span class="w">       </span><span class="nv">lookup</span><span class="w">              </span><span class="c1">; navigate your code and its documentation</span>
+<span class="w">       </span><span class="nv">lsp</span><span class="w">               </span><span class="c1">; M-x vscode</span>
+<span class="w">       </span><span class="nv">magit</span><span class="w">             </span><span class="c1">; a git porcelain for Emacs</span>
+<span class="w">       </span><span class="c1">;;make              ; run make tasks from Emacs</span>
+
+
+<span class="w">       </span><span class="nb">:os</span>
+<span class="w">       </span><span class="c1">;;(:if (featurep :system &#39;macos) macos)  ; improve compatibility with macOS</span>
+<span class="w">       </span><span class="nv">tty</span><span class="w">               </span><span class="c1">; improve the terminal Emacs experience</span>
+
+<span class="w">       </span><span class="nb">:lang</span>
+<span class="w">       </span><span class="c1">;;agda              ; types of types of types of types...</span>
+<span class="w">       </span><span class="c1">;;beancount         ; mind the GAAP</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">cc</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">         </span><span class="c1">; C &gt; C++ == 1</span>
+<span class="w">       </span><span class="c1">;;clojure           ; java with a lisp</span>
+<span class="w">       </span><span class="c1">;;elm               ; care for a cup of TEA?</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">emacs-lisp</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">        </span><span class="c1">; drown in parentheses</span>
+<span class="w">       </span><span class="c1">;;erlang            ; an elegant language for a more civilized age</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">go</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">         </span><span class="c1">; the hipster dialect</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">graphql</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">    </span><span class="c1">; Give queries a REST</span>
+<span class="w">       </span><span class="c1">;;(haskell +lsp)    ; a language that&#39;s lazier than I am</span>
+<span class="w">       </span><span class="c1">;;hy                ; readability of scheme w/ speed of python</span>
+<span class="w">       </span><span class="c1">;;idris             ; a language you can depend on</span>
+<span class="w">       </span><span class="c1">;;json              ; At least it ain&#39;t XML</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">java</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">       </span><span class="c1">; the poster child for carpal tunnel syndrome</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">javascript</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">        </span><span class="c1">; all(hope(abandon(ye(who(enter(here))))))</span>
+<span class="w">       </span><span class="c1">;;julia             ; a better, faster MATLAB</span>
+<span class="w">       </span><span class="c1">;;lua               ; one-based indices? one-based indices</span>
+<span class="w">       </span><span class="nv">markdown</span><span class="w">          </span><span class="c1">; writing docs for people to ignore</span>
+<span class="w">       </span><span class="c1">;;nim               ; python + lisp at the speed of c</span>
+<span class="w">       </span><span class="c1">;;nix               ; I hereby declare &quot;nix geht mehr!&quot;</span>
+<span class="w">       </span><span class="c1">;;ocaml             ; an objective camel</span>
+<span class="w">       </span><span class="nv">org</span><span class="w">               </span><span class="c1">; organize your plain life in plain text</span>
+<span class="w">       </span><span class="c1">;;php               ; perl&#39;s insecure younger brother</span>
+<span class="w">       </span><span class="c1">;;plantuml          ; diagrams for confusing people more</span>
+<span class="w">       </span><span class="c1">;;graphviz          ; diagrams for confusing yourself even more</span>
+<span class="w">       </span><span class="c1">;;purescript        ; javascript, but functional</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">python</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">            </span><span class="c1">; beautiful is better than ugly</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">web</span><span class="w"> </span><span class="nv">+lsp</span><span class="p">)</span><span class="w">               </span><span class="c1">; the tubes</span>
+
+<span class="w">       </span><span class="p">(</span><span class="nv">default</span><span class="w"> </span><span class="nv">+bindings</span><span class="w"> </span><span class="nv">+smartparens</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">package-native-compile</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="c1">;; Set garbage collection threshold to 1GB.</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">gc-cons-threshold</span><span class="w"> </span><span class="p">(</span><span class="nf">*</span><span class="w"> </span><span class="mi">2048</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="mi">750</span><span class="p">))</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">read-process-output-max</span><span class="w"> </span><span class="p">(</span><span class="nf">*</span><span class="w"> </span><span class="mi">2048</span><span class="w"> </span><span class="mi">2048</span><span class="p">))</span><span class="w"> </span><span class="c1">;; 1mb
+</pre>
+
+	</details>
+
+			<details open>
+				<summary>
+					<h4 style="display:inline"><code>packages.el</code>:</h4>
+				</summary>
+			
+				<pre><span></span><span class="p">(</span><span class="nv">package!</span><span class="w"> </span><span class="nv">corfu-terminal</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">package!</span><span class="w"> </span><span class="nv">nerd-icons-corfu</span><span class="p">)</span>
+
+<span class="w"> </span><span class="p">(</span><span class="nv">package!</span><span class="w"> </span><span class="nv">corfu-doc-terminal</span>
+<span class="w">   </span><span class="nb">:recipe</span><span class="w">   </span><span class="p">(</span><span class="nb">:type</span><span class="w"> </span><span class="nv">git</span>
+<span class="w">   </span><span class="nb">:repo</span><span class="w"> </span><span class="s">&quot;https://codeberg.org/akib/emacs-corfu-doc-terminal.git&quot;</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">package!</span><span class="w"> </span><span class="nv">ace-jump-mode</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">package!</span><span class="w"> </span><span class="nv">rainbow-mode</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">package!</span><span class="w"> </span><span class="nv">avy</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">package!</span><span class="w"> </span><span class="nv">visual-regexp-steroids</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">package!</span><span class="w"> </span><span class="nv">clipetty</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">package!</span><span class="w"> </span><span class="nv">comment-dwim-2</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">package!</span><span class="w"> </span><span class="nv">lsp-pyright</span><span class="p">)</span>
+</pre>
+
+			</details>
+
+			<p>... and now, for the one y'all actually came for:</p>
+			<details open>
+				<summary>
+					<h4 style="display:inline"><code>config.el</code>:</h4>
+				</summary>
+				<pre><span></span><span class="c1">;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-</span>
+
+<span class="c1">;; Place your private configuration here! Remember, you do not need to run &#39;doom</span>
+<span class="c1">;; sync&#39; after modifying this file!</span>
+
+
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">doom-theme</span><span class="w"> </span><span class="ss">&#39;doom-tokyo-night</span><span class="p">)</span>
+
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">display-line-numbers-type</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">org-directory</span><span class="w"> </span><span class="s">&quot;~/org/&quot;</span><span class="p">)</span>
+
+<span class="c1">;; Corfu</span>
+
+
+<span class="p">(</span><span class="nv">corfu-echo-mode</span><span class="w"> </span><span class="mi">+1</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">corfu-history-mode</span><span class="w"> </span><span class="mi">+1</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;corfu-margin-formatters</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">nerd-icons-corfu-formatter</span><span class="p">)</span>
+
+<span class="c1">;; (add-hook &#39;corfu-mode-hook #&#39;corfu-doc-mode)</span>
+<span class="c1">;; Optionally:</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">nerd-icons-corfu-mapping</span>
+<span class="w">      </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">array</span><span class="w"> </span><span class="nb">:style</span><span class="w"> </span><span class="s">&quot;cod&quot;</span><span class="w"> </span><span class="nb">:icon</span><span class="w"> </span><span class="s">&quot;symbol_array&quot;</span><span class="w"> </span><span class="nb">:face</span><span class="w"> </span><span class="nv">font-lock-type-face</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">boolean</span><span class="w"> </span><span class="nb">:style</span><span class="w"> </span><span class="s">&quot;cod&quot;</span><span class="w"> </span><span class="nb">:icon</span><span class="w"> </span><span class="s">&quot;symbol_boolean&quot;</span><span class="w"> </span><span class="nb">:face</span><span class="w"> </span><span class="nv">font-lock-builtin-face</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">;; ...</span>
+<span class="w">        </span><span class="p">(</span><span class="no">t</span><span class="w"> </span><span class="nb">:style</span><span class="w"> </span><span class="s">&quot;cod&quot;</span><span class="w"> </span><span class="nb">:icon</span><span class="w"> </span><span class="s">&quot;code&quot;</span><span class="w"> </span><span class="nb">:face</span><span class="w"> </span><span class="nv">font-lock-warning-face</span><span class="p">)))</span>
+<span class="w">        </span><span class="c1">;; Remember to add an entry for `t&#39;, the library uses that as default.</span>
+
+<span class="c1">;; The Custom interface is also supported for tuning the variable above.</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">kill-whole-line</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nf">user-full-name</span><span class="w"> </span><span class="s">&quot;Seb REDACATED&quot;</span><span class="w">    </span><span class="c1">;Really hope I remember to like,</span>
+<span class="w">                                        </span><span class="c1">;update these when I copy this into my setup lmao</span>
+<span class="w">      </span><span class="nv">user-mail-address</span><span class="w"> </span><span class="s">&quot;niceTry@sucker.thisisntaTLD&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">auto-save-default</span><span class="w"> </span><span class="no">t</span>
+<span class="w">      </span><span class="nv">make-backup-files</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">confirm-kill-emacs</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">doom-font</span><span class="w"> </span><span class="p">(</span><span class="nf">font-spec</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;CodeNewRoman Nerd Font Mono&quot;</span><span class="w"> </span><span class="nb">:size</span><span class="w"> </span><span class="mi">14</span><span class="p">)</span>
+<span class="w">      </span><span class="nv">doom-variable-pitch-font</span><span class="w"> </span><span class="p">(</span><span class="nf">font-spec</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;CodeNewRoman Nerd Font Mono&quot;</span><span class="w"> </span><span class="nb">:size</span><span class="w"> </span><span class="mi">14</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">custom-set-faces!</span>
+<span class="w">  </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">doom-dashboard-banner</span><span class="w"> </span><span class="nb">:inherit</span><span class="w"> </span><span class="nv">default</span><span class="p">)</span>
+<span class="w">  </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">doom-dashboard-loaded</span><span class="w"> </span><span class="nb">:inherit</span><span class="w"> </span><span class="nv">default</span><span class="p">))</span>
+
+
+<span class="p">(</span><span class="nv">use-package!</span><span class="w"> </span><span class="nv">visual-regexp-steroids</span>
+<span class="w">  </span><span class="nb">:defer</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="c1">;; (require &#39;pcre2el)</span>
+<span class="w">  </span><span class="c1">;; (setq vr/engine &#39;pcre2el)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">map!</span><span class="w"> </span><span class="s">&quot;C-c s r&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">vr/replace</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">map!</span><span class="w"> </span><span class="s">&quot;C-c s q&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">vr/query-replace</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">after!</span><span class="w"> </span><span class="nv">undo-fu</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">map!</span><span class="w"> </span><span class="nb">:map</span><span class="w"> </span><span class="nv">undo-fu-mode-map</span><span class="w"> </span><span class="s">&quot;M-/&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">undo-fu-only-redo</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">after!</span><span class="w"> </span><span class="nv">treemacs</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">treemacs-follow-mode</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">unless</span><span class="w"> </span><span class="nf">window-system</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">xterm-mouse-mode</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">&quot;&lt;mouse-4&gt;&quot;</span><span class="p">)</span><span class="w"> </span><span class="ss">&#39;scroll-down-line</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">&quot;&lt;mouse-5&gt;&quot;</span><span class="p">)</span><span class="w"> </span><span class="ss">&#39;scroll-up-line</span><span class="p">))</span>
+<span class="c1">;; (global-clipetty-mode)</span>
+<span class="p">(</span><span class="nv">map!</span><span class="w"> </span><span class="s">&quot;C-s&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">+default/search-buffer</span>
+<span class="w">      </span><span class="s">&quot;C-t&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">eshell-toggle</span>
+<span class="w">      </span><span class="p">)</span>
+
+<span class="c1">;; (map! &quot;C-&lt;tab&gt;&quot; #&#39;format/region</span>
+<span class="p">(</span><span class="nv">map!</span><span class="w"> </span><span class="s">&quot;&lt;backtab&gt;&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">indent-rigidly-left-to-tab-stop</span>
+<span class="w">      </span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">use-package!</span><span class="w"> </span><span class="nv">eshell-follow</span>
+<span class="w">  </span><span class="nb">:after-call</span><span class="w"> </span><span class="nv">eshell-follow-global-mode</span><span class="p">)</span>
+
+
+<span class="p">(</span><span class="nb">defadvice</span><span class="w"> </span><span class="nv">kill-ring-save</span><span class="w"> </span><span class="p">(</span><span class="nv">before</span><span class="w"> </span><span class="nv">slick-copy</span><span class="w"> </span><span class="nv">activate</span><span class="w"> </span><span class="nv">compile</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;When called interactively with no active region, copy a single line instead.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span>
+<span class="w">   </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="nv">mark-active</span>
+<span class="w">       </span><span class="p">(</span><span class="nf">list</span><span class="w"> </span><span class="p">(</span><span class="nf">region-beginning</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">region-end</span><span class="p">))</span>
+<span class="w">     </span><span class="p">(</span><span class="nf">message</span><span class="w"> </span><span class="s">&quot;Copied line&quot;</span><span class="p">)</span>
+<span class="w">     </span><span class="p">(</span><span class="nf">list</span><span class="w"> </span><span class="p">(</span><span class="nf">line-beginning-position</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">line-beginning-position</span><span class="w"> </span><span class="mi">2</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="nb">defadvice</span><span class="w"> </span><span class="nv">kill-ring-save</span><span class="w"> </span><span class="p">(</span><span class="nv">after</span><span class="w"> </span><span class="nv">keep-transient-mark-active</span><span class="w"> </span><span class="p">())</span><span class="w"> </span><span class="c1">;</span>
+<span class="w">  </span><span class="s">&quot;Override the deactivation of the mark.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">deactivate-mark</span><span class="w"> </span><span class="no">nil</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">ad-activate</span><span class="w"> </span><span class="ss">&#39;kill-ring-save</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">mark-unmark-toggle</span><span class="p">()</span><span class="w">             </span><span class="c1">;does what it says on the box ~~fuck this took me way too long lmao~~</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span>
+<span class="w">   </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="nv">mark-active</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">deactivate-mark</span><span class="p">)</span>
+<span class="w">     </span><span class="p">(</span><span class="nv">push-mark</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">t</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nb">defadvice</span><span class="w"> </span><span class="nv">backward-kill-word</span><span class="w"> </span><span class="p">(</span><span class="nv">around</span><span class="w"> </span><span class="nv">delete-pair</span><span class="w"> </span><span class="nv">activate</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="p">(</span><span class="nf">char-syntax</span><span class="w"> </span><span class="p">(</span><span class="nf">char-before</span><span class="p">))</span><span class="w"> </span><span class="sc">?\(</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">backward-char</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="k">save-excursion</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">forward-sexp</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">delete-char</span><span class="w"> </span><span class="mi">-1</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">forward-char</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">append-next-kill</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">kill-backward-chars</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span>
+<span class="w">    </span><span class="nv">ad-do-it</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">acg/with-mark-active</span><span class="w"> </span><span class="p">(</span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">args</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Keep mark active after command. To be used as advice AFTER any</span>
+<span class="s">function that sets </span><span class="ss">`deactivate-mark&#39;</span><span class="s"> to t.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">deactivate-mark</span><span class="w"> </span><span class="no">nil</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">advice-add</span><span class="w"> </span><span class="ss">&#39;comment-or-uncomment-region</span><span class="w"> </span><span class="nb">:after</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">acg/with-mark-active</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">cd2/region-command</span><span class="w"> </span><span class="ss">&#39;cd2/comment-or-uncomment-lines</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">map!</span><span class="w"> </span><span class="s">&quot;M-#&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">comment-dwim-2</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">map!</span><span class="w"> </span><span class="s">&quot;C-@&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">mark-unmark-toggle</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">map!</span><span class="w"> </span><span class="s">&quot;C-SPC&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">mark-unmark-toggle</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">kill-line-or-region</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;kill region if active only or kill line normally&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">region-active-p</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">call-interactively</span><span class="w"> </span><span class="ss">&#39;kill-region</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">call-interactively</span><span class="w"> </span><span class="ss">&#39;kill-line</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">&quot;C-k&quot;</span><span class="p">)</span><span class="w"> </span><span class="ss">&#39;kill-line-or-region</span><span class="p">)</span>
+
+<span class="c1">;; (map! &quot;C-w&quot; #&#39;backward-kill-word)</span>
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">backward-kill-region-or-word</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;kill region if active only or kill line normally&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">region-active-p</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">call-interactively</span><span class="w"> </span><span class="ss">&#39;kill-region</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">call-interactively</span><span class="w"> </span><span class="ss">&#39;backward-kill-word</span><span class="p">)))</span>
+<span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">&quot;C-w&quot;</span><span class="p">)</span><span class="w"> </span><span class="ss">&#39;backward-kill-region-or-word</span><span class="p">)</span>
+
+
+<span class="p">(</span><span class="nf">autoload</span>
+<span class="w">  </span><span class="ss">&#39;ace-jump-mode</span>
+<span class="w">  </span><span class="s">&quot;ace-jump-mode&quot;</span>
+<span class="w">  </span><span class="s">&quot;Emacs quick move minor mode&quot;</span>
+<span class="w">  </span><span class="no">t</span><span class="p">)</span>
+<span class="c1">;; you can select the key you prefer to</span>
+<span class="p">(</span><span class="nv">map!</span><span class="w"> </span><span class="s">&quot;C-c C-t&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">treemacs-select-window</span><span class="p">)</span>
+<span class="w">  </span><span class="c1">;; config.el</span>
+<span class="w">  </span><span class="c1">;; (require &#39;tera-mode)</span>
+<span class="c1">;; (treemacs-no-png-images t)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">doom-themes-treemacs-theme</span><span class="w"> </span><span class="s">&quot;doom-colors&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">treemacs-no-png-images</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+
+
+<span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">&quot;C-x C-t&quot;</span><span class="p">)</span><span class="w"> </span><span class="ss">&#39;ivy-switch-buffer-other-window</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">&quot;C-&lt;tab&gt;&quot;</span><span class="p">)</span><span class="w"> </span><span class="ss">&#39;+ivy/switch-workspace-buffer</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">persp-emacsclient-init-frame-behaviour-override</span><span class="w"> </span><span class="s">&quot;main&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">&quot;C-c SPC&quot;</span><span class="p">)</span><span class="w"> </span><span class="ss">&#39;avy-goto-char</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">&quot;C-c C-SPC&quot;</span><span class="p">)</span><span class="w"> </span><span class="ss">&#39;avy-goto-char</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">copy-to-clipboard</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">        </span><span class="p">(</span><span class="nf">message</span><span class="w"> </span><span class="s">&quot;Yanked region to x-clipboard!&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nf">call-interactively</span><span class="w"> </span><span class="ss">&#39;clipboard-kill-ring-save</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">region-active-p</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">shell-command-on-region</span><span class="w"> </span><span class="p">(</span><span class="nf">region-beginning</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">region-end</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;xsel -i -b&quot;</span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">message</span><span class="w"> </span><span class="s">&quot;Yanked region to clipboard!&quot;</span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">deactivate-mark</span><span class="p">))</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">message</span><span class="w"> </span><span class="s">&quot;No region active; can&#39;t yank to clipboard!&quot;</span><span class="p">)))</span>
+<span class="w">  </span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">paste-from-clipboard</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">clipboard-yank</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nf">message</span><span class="w"> </span><span class="s">&quot;graphics active&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">insert</span><span class="w"> </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="s">&quot;xsel -o -b&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">  </span><span class="p">)</span>
+
+
+<span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">      </span><span class="c1">;; if graphic</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">use-package!</span><span class="w"> </span><span class="nv">corfu</span>
+<span class="w">        </span><span class="nb">:custom</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">corfu-auto</span><span class="w"> </span><span class="no">t</span><span class="p">)</span><span class="w">               </span><span class="c1">;; Enable auto completion</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">corfu-preselect</span><span class="w"> </span><span class="ss">&#39;directory</span><span class="p">)</span><span class="w"> </span><span class="c1">;; Select the first candidate, except for directories</span>
+
+<span class="w">        </span><span class="nb">:init</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">global-corfu-mode</span><span class="p">)</span>
+
+<span class="w">        </span><span class="nb">:config</span>
+<span class="w">        </span><span class="c1">;; Free the RET key for less intrusive behavior.</span>
+<span class="w">        </span><span class="c1">;; Option 1: Unbind RET completely</span>
+<span class="w">        </span><span class="c1">;; (keymap-unset corfu-map &quot;RET&quot;)</span>
+<span class="w">        </span><span class="c1">;; Option 2: Use RET only in shell modes</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">corfu-map</span><span class="w"> </span><span class="s">&quot;RET&quot;</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="w"> </span><span class="nv">menu-item</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:filter</span>
+<span class="w">                                       </span><span class="o">,</span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="kp">&amp;optional</span><span class="w"> </span><span class="nv">_</span><span class="p">)</span>
+<span class="w">                                          </span><span class="p">(</span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="nv">derived-mode-p</span><span class="w"> </span><span class="ss">&#39;eshell-mode</span><span class="w"> </span><span class="ss">&#39;comint-mode</span><span class="p">)</span>
+<span class="w">                                               </span><span class="nf">#&#39;</span><span class="nv">corfu-send</span><span class="p">))))))</span>
+
+<span class="w">  </span><span class="c1">;; else (optional)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">use-package!</span><span class="w"> </span><span class="nv">corfu</span>
+<span class="w">    </span><span class="nb">:custom</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">corfu-auto</span><span class="w"> </span><span class="no">t</span><span class="p">)</span><span class="w">               </span><span class="c1">;; Enable auto completion</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">corfu-preselect</span><span class="w"> </span><span class="ss">&#39;directory</span><span class="p">))</span><span class="w"> </span><span class="c1">;; Select the first candidate, except for directories</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">after!</span><span class="w"> </span><span class="nv">corfu</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">map!</span><span class="w"> </span><span class="nb">:map</span><span class="w"> </span><span class="nv">corfu-map</span>
+<span class="w">          </span><span class="s">&quot;TAB&quot;</span><span class="w">     </span><span class="nf">#&#39;</span><span class="nv">corfu-insert</span><span class="p">))</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">keymap-unset</span><span class="w"> </span><span class="nv">corfu-map</span><span class="w"> </span><span class="s">&quot;RET&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">corfu-terminal-mode</span><span class="w"> </span><span class="mi">+1</span><span class="p">))</span>
+
+
+
+<span class="p">(</span><span class="nv">custom-set-faces!</span>
+<span class="w">  </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">default</span><span class="w"> </span><span class="nb">:background</span><span class="w"> </span><span class="no">nil</span><span class="p">))</span>
+
+
+
+<span class="p">(</span><span class="nv">after!</span><span class="w"> </span><span class="nv">lsp-volar</span>
+<span class="w">  </span><span class="c1">;; remove :system after lsp-volar loaded</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">lsp-dependency</span><span class="w"> </span><span class="ss">&#39;typescript</span>
+<span class="w">                  </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:npm</span><span class="w"> </span><span class="nb">:package</span><span class="w"> </span><span class="s">&quot;typescript&quot;</span>
+<span class="w">                    </span><span class="nb">:path</span><span class="w"> </span><span class="s">&quot;tsserver&quot;</span><span class="p">)))</span>
+<span class="c1">;; Garbage collection (or lack thereof soon)</span>
+<span class="p">(</span><span class="nb">defmacro</span><span class="w"> </span><span class="nv">k-time</span><span class="w"> </span><span class="p">(</span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">body</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Measure and return the time it takes evaluating BODY.&quot;</span>
+<span class="w">  </span><span class="o">`</span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">time</span><span class="w"> </span><span class="p">(</span><span class="nf">current-time</span><span class="p">)))</span>
+<span class="w">     </span><span class="o">,@</span><span class="nv">body</span>
+<span class="w">     </span><span class="p">(</span><span class="nf">float-time</span><span class="w"> </span><span class="p">(</span><span class="nv">time-since</span><span class="w"> </span><span class="nv">time</span><span class="p">))))</span>
+
+
+<span class="c1">;; When idle for 15sec run the GC no matter what.</span>
+<span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">k-gc-timer</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">run-with-idle-timer</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="no">t</span>
+<span class="w">                       </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span>
+<span class="w">                         </span><span class="p">(</span><span class="nf">message</span><span class="w"> </span><span class="s">&quot;Garbage Collector has run for %.06fsec&quot;</span>
+<span class="w">                                  </span><span class="p">(</span><span class="nv">k-time</span><span class="w"> </span><span class="p">(</span><span class="nf">garbage-collect</span><span class="p">))))))</span>
+</pre>
+
+				</details>
+		</div>
+	</main>
+
+					<footer class="container">
+		<a href="/"> Main Page </a>
+	</footer>
+
+
+
+</body>
+
+</html>
