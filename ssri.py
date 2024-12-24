@@ -6,6 +6,7 @@ import re
 import shutil
 import fileinput
 import readline                 # I like having inputs work well with navigation - sue me
+import glob
 # from termcolor import colored
 
 # Coloured Outputs Constants
@@ -17,9 +18,10 @@ CEND     = '\33[0m'
 def getListOfFilesToSearch(inputDir, outputDir):
      files = ([], [])           # first list is of orginal location, second is of new location
      global noWarnings
-     for (dirpath, dirnames, filenames) in walk(inputDir): # breaks without dirnames, so that's staying here I guess lmao
+     for (dirpath, subdirs, filenames) in walk(inputDir): # breaks without dirnames, so that's staying here I guess lmao
           safeMode = False
           for name in filenames:
+               # print(subdirs)
                if(name.endswith(".html")):
                     if os.path.exists((outputDir[0]+ "/" + str(name))) and noWarnings == False and safeMode == False:
                          print(f"{CRED}Warning, you are about to overwrite {outputDir[0]+ '/' + name}, do you want to continue (if you did not intend to do please look at the -o option)? y/N{CEND}")
@@ -40,17 +42,29 @@ def getListOfFilesToSearch(inputDir, outputDir):
                     if(safeMode):
                          # print(name)
 
+                         dirPathNewOutput = dirpath.replace(inputDir, outputDir[0], 1)
 
                          files[0].append(os.path.join(dirpath, name))
-                         print(f"adding {os.path.join(dirpath, name)} to files")
+                         # print(f"adding {os.path.join(dirpath, name)} to files")
                          name = name + ".ssri" # Prevent overwriting exisiting files))
                          # print(outputDir[0]+ "/" + str(name))
-                         files[1].append((outputDir[0]+ "/" + str(name)))
+                         files[1].append(os.path.join(dirPathNewOutput, name))
+                         # print(f"adding {os.path.join(dirPathNewOutput, name)} to files")
+
+                         # files[1].append((outputDir[0]+ "/" + str(name)))
                     else:
+                         dirPathNewOutput = dirpath
+
+                         dirPathNewOutput = dirpath.replace(inputDir, outputDir[0], 1)
+
+
                          files[0].append(os.path.join(dirpath, name))
-                         print(f"adding {os.path.join(dirpath, name)} to files")
-                         # print(outputDir[0]+ "/" + str(name))
-                         files[1].append((outputDir[0]+ "/" + str(name)))
+                          #
+                         # print(f"adding {os.path.join(dirpath, name)} to files")
+                         # print(dirPathNewOutput, outputDir[0]+ "/" + str(name))
+                         files[1].append(os.path.join(dirPathNewOutput, name))
+                         # print(f"adding {os.path.join(dirPathNewOutput, name)} to files")
+
      return(files)
           # dirs.extend(dirnames)
           # print(f"adding {dirnames} to dirs")
