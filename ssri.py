@@ -82,9 +82,14 @@ def getListOfFilesToSearchFiles(inputFile, outputDir, templates, noWarnings, num
      safeMode = False
      for files in inputFile:
           if not os.path.isfile(files):
+               if os.path.exists(files):
+                    print(f"{CYELLOW}! {files} is a directory, please use the '-d' flag - we are going to skip it{CEND}")
+                    numWarnings += 1
+                    continue
                print(f"{CYELLOW}! {files} does not exist - we are going to skip it{CEND}")
                numWarnings += 1
                continue
+
           filesToSearch[0].append(str(files))
           lastGoodFile = files
           filePathOut = outputDir[0]+ "/" + str(files)
@@ -137,12 +142,11 @@ def getListOfFilesToSearchFiles(inputFile, outputDir, templates, noWarnings, num
      return(filesToSearch, templatesDir, numWarnings)
 
 
-def checkFileForIncludes(fileName, inputDir, numFilesChanged, verbose): # inputdir is placeholder for location of template files - not anymore lol, now it is template dir
-     # print(f"Now reading in {fileName}")
+def checkFileForIncludes(fileName, templateDir, numFilesChanged, verbose, numWarnings):
+
      fileRead = open((fileName), "r")
      fileReadIn = fileRead.readlines()
      includeFiles = ([],[])     # first list is text found, second is the text to replace it with
-     global numWarnings
 
      for line in fileReadIn:
           includeFiles[0].extend(re.findall(r'<!--.*#include file=".+".*-->', line))
@@ -154,16 +158,16 @@ def checkFileForIncludes(fileName, inputDir, numFilesChanged, verbose): # inputd
           for matchReg in copyOfInitialIncludesFile:
                fileToRead = re.search(r'"(.+)"', matchReg).group().strip('"')
 
-               verboseMsg = f"Will attempt to be reading in in file: {inputDir + '/' + fileToRead}"
+               verboseMsg = f"Will attempt to be reading in in file: {templateDir + '/' + fileToRead}"
                verbosePrint(verbose, verboseMsg)
-               if not os.path.exists(inputDir + '/' + fileToRead):
-                    print(f"{CRED}! Could not find file: {inputDir +'/' + fileToRead}, which was requested by {fileName} - make sure you are following all the rules laid out about directory locations specfied in --help {CEND}\n")
+               if not os.path.exists(templateDir + '/' + fileToRead):
+                    print(f"{CRED}! Could not find file: {templateDir +'/' + fileToRead}, which was requested by {fileName} - make sure you are following all the rules laid out about directory locations specfied in --help {CEND}\n")
                     numWarnings += 1
                     includeFiles[0].remove(matchReg) # remove the include file from list cause cant read it lol
                     # print(includeFiles)
                     continue
 
-               textIn = open(inputDir +"/" + fileToRead, "r")
+               textIn = open(templateDir +"/" + fileToRead, "r")
                textToCopyIn = textIn.read()
                # print(textToCopyIn)
                includeFiles[1].append(textToCopyIn)
@@ -255,9 +259,10 @@ def main():
                # print(filesToSearch)
                fileCreatedCounter = copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex], fileCreatedCounter)
                if args.templates_dir is None: # Get templates from same dir as rest of html files
-                    numFilesChanged = checkFileForIncludes(filesToSearch[1][fileSearchIndex], templatesDir[0], numFilesChanged, verbose)
+                    numFilesChanged = checkFileForIncludes(filesToSearch[1][fileSearchIndex], templatesDir[0], numFilesChanged, verbose, numWarnings)
                else:
-                    numFilesChanged = checkFileForIncludes(filesToSearch[1][fileSearchIndex], args.templates_dir[0], numFilesChanged, verbose)
+                    # print("filesToSearch[1][fileSearchIndex], args.templates_dir[0], numFilesChanged, verbose, numWarnings  ", filesToSearch[1][fileSearchIndex], args.templates_dir[0], numFilesChanged, verbose, numWarnings)
+                    numFilesChanged = checkFileForIncludes(filesToSearch[1][fileSearchIndex], args.templates_dir[0], numFilesChanged, verbose, numWarnings)
      if(numWarnings == 0):
           printColour = CGREEN
           includeText = "✓"
