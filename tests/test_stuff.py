@@ -36,9 +36,28 @@ def test_templates_output_infile(snapshot):
     assert filecheck == snapshot
 
 def test_readfilesDir(snapshot):
-    listFiles = ssri.getListOfFilesToSearchDir("testFolder/sites/", ["outputLocation"], False, False )
+    listFiles = ssri.getListOfFilesToSearchDir("testFolder/staging", ["testFolder/sites"], True, False )
     assert listFiles == snapshot
 
 def test_readfilesFile(snapshot):
-    listFiles = ssri.getListOfFilesToSearchFiles("testFolder/emacsConf.html", ["outputLocation"], "testFolder/templates/", False, 0, False)
+    listFiles = ssri.getListOfFilesToSearchFiles(["testFolder/staging/emacsFiles.html"], ["testFolder/sites"], "testFolder/templates", False, 0, False)
     assert listFiles == snapshot
+
+def test_checkCopyFiles(snapshot):
+    inputFiles = ssri.getListOfFilesToSearchDir("testFolder/staging", ["testFolder/sites"], True, False)
+    fileCreatedCounter = 0
+    numFilesCopied = 0
+    for fileSearchIndex in range(len(inputFiles[0])):
+        numFilesCopied += ssri.copyFilesToNewLocation(inputFiles[1][fileSearchIndex], inputFiles[0][fileSearchIndex], fileCreatedCounter)
+    assert numFilesCopied == snapshot
+
+
+def test_checkFiles(snapshot):
+    inputFiles = ssri.getListOfFilesToSearchDir("testFolder/staging", ["testFolder/sites"], True, False)
+    fileCreatedCounter = 0
+    for fileSearchIndex in range(len(inputFiles[0])):
+        ssri.copyFilesToNewLocation(inputFiles[1][fileSearchIndex], inputFiles[0][fileSearchIndex], fileCreatedCounter)
+    checkIncludes = []
+    for files in inputFiles[1]:
+        checkIncludes.append(ssri.checkFileForIncludes(files, "testFolder/templates", 0, False, 0))
+    assert checkIncludes == snapshot

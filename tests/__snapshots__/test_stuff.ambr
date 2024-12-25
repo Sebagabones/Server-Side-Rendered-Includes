@@ -1,4 +1,23 @@
 # serializer version: 1
+# name: test_checkCopyFiles
+  12
+# ---
+# name: test_checkFiles
+  list([
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+  ])
+# ---
 # name: test_dir
   Namespace(dir=True, inputFile=['dir'], templates_dir=None, output='.', no_warnings=False, verbose=False)
 # ---
@@ -7,6 +26,20 @@
 # ---
 # name: test_readfilesDir
   tuple(
+    list([
+      'testFolder/staging/index.html',
+      'testFolder/staging/myRack.html',
+      'testFolder/staging/bonescrawlhome.html',
+      'testFolder/staging/bonesrunhome.html',
+      'testFolder/staging/bonesboundhome.html',
+      'testFolder/staging/report.html',
+      'testFolder/staging/template.html',
+      'testFolder/staging/bonescallhome.html',
+      'testFolder/staging/404.html',
+      'testFolder/staging/emacsFiles.html',
+      'testFolder/staging/Power7.html',
+      'testFolder/staging/contact.html',
+    ]),
     list([
       'testFolder/sites/index.html',
       'testFolder/sites/myRack.html',
@@ -21,32 +54,20 @@
       'testFolder/sites/Power7.html',
       'testFolder/sites/contact.html',
     ]),
-    list([
-      'outputLocation/index.html',
-      'outputLocation/myRack.html',
-      'outputLocation/bonescrawlhome.html',
-      'outputLocation/bonesrunhome.html',
-      'outputLocation/bonesboundhome.html',
-      'outputLocation/report.html',
-      'outputLocation/template.html',
-      'outputLocation/bonescallhome.html',
-      'outputLocation/404.html',
-      'outputLocation/emacsFiles.html',
-      'outputLocation/Power7.html',
-      'outputLocation/contact.html',
-    ]),
   )
 # ---
 # name: test_readfilesFile
   tuple(
     tuple(
       list([
+        'testFolder/staging/emacsFiles.html',
       ]),
       list([
+        'testFolder/sites/emacsFiles.html',
       ]),
     ),
-    'testFolder/templates/',
-    25,
+    'testFolder/templates',
+    0,
   )
 # ---
 # name: test_templates_dir
