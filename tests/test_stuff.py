@@ -36,5 +36,9 @@ def test_templates_output_infile(snapshot):
     assert filecheck == snapshot
 
 def test_readfilesDir(snapshot):
-    listFiles = ssri.getListOfFilesToSearchDir("testFolder", ["outputLocation"], False, False )
+    listFiles = ssri.getListOfFilesToSearchDir("testFolder/sites/", ["outputLocation"], False, False )
+    assert listFiles == snapshot
+
+def test_readfilesFile(snapshot):
+    listFiles = ssri.getListOfFilesToSearchFiles("testFolder/emacsConf.html", ["outputLocation"], "testFolder/templates/", False, 0, False)
     assert listFiles == snapshot
