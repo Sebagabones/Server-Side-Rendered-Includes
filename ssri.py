@@ -191,14 +191,16 @@ def getTextForIncludeFile(templateFile): # Returns the contents of the template 
      return(textToCopyIn)
 
 def writeTextToFiles(templateFile, fileList, verbose):         # write the provided template file into the fileList (which is actually a set of named tuples)
+     # TODO: Change this to do multithreading - will want to swap out from using fileinput when you do this though
      verbosePrint(verbose, "\n")
      textToAdd = getTextForIncludeFile(templateFile)
-     for fileIn in fileList:
-
-          with fileinput.FileInput(fileIn.fileName, inplace=True) as files:
+     typesOfInclude = set([fileIn.includeText for fileIn in fileList])
+     fileListThatIsAList = [fileIn.fileName for fileIn in fileList]
+     with fileinput.FileInput(fileListThatIsAList, inplace=True) as files:
+          for includeText in typesOfInclude:
                for line in files:
           # print(f"would be replacing {fileIn.includeText} with {textToAdd}")
-                    print(line.replace(fileIn.includeText, textToAdd), end='')
+                    print(line.replace(includeText, textToAdd), end='')
      if(len(fileList) > 1):
           print(f"{CGREEN}✓ {templateFile} successfully included in  {len(fileList)} files {CEND}")
           # numFilesChanged += 1
@@ -208,7 +210,7 @@ def writeTextToFiles(templateFile, fileList, verbose):         # write the provi
      # return(numFilesChanged)
 
 
-def copyFilesToNewLocation(newFileLocation, oldFileLocation, fileCreatedCounter):
+def copyFilesToNewLocation(newFileLocation, oldFileLocation):
      # print(f"copying files from {oldFileLocation} to  {newFileLocation}")
      # print(f"newFileLocation {newFileLocation}")
      # fileCreatedCounter += 1
@@ -280,7 +282,7 @@ def main():
      dictOfTemplatesToFiles = None
      if args.templates_dir is None: # Get templates from same dir as rest of html files
           for fileSearchIndex in range(len(filesToSearch[0])):
-               copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex], fileCreatedCounter)
+               copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex])
                fileCreatedCounter += 1
           dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFileForIncludes(filesToSearch[1], templatesDir[0], numFilesChanged, verbose, numWarnings) # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
           for template in dictOfTemplatesToFiles.items():
@@ -289,7 +291,7 @@ def main():
           # numFilesChanged =
      else:
           for fileSearchIndex in range(len(filesToSearch[0])):
-               copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex], fileCreatedCounter)
+               copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex])
                fileCreatedCounter += 1
           dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFileForIncludes(filesToSearch[1], args.templates_dir[0], numFilesChanged, verbose, numWarnings)  # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
           # print(dictOfTemplatesToFiles)
