@@ -81,7 +81,7 @@ def test_checkFiles(snapshot):
     for template in checkIncludes[0].items():
         ssri.writeTextToFiles(template[0], template[1], True)
     arrayOfMatchesOfNot = []    # an array that will be filled with the output of filecmp
-    for filesToCompare in zip(inputFiles[1],knownGoodFiles[1]):
+    for filesToCompare in zip(inputFiles[1].sort(),knownGoodFiles[1].sort()):
         sitesFile, knownGoodFile = tuple(filesToCompare)
         arrayOfMatchesOfNot.append(filecmp.cmp(sitesFile, knownGoodFile, shallow=False))
     assert arrayOfMatchesOfNot == snapshot
