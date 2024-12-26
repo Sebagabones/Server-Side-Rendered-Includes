@@ -41,7 +41,7 @@ def test_templates_output_infile(snapshot):
     assert filecheck == snapshot
 
 def test_readfilesDir(snapshot):
-    listFiles = ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False )
+    listFiles = sorted(ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False ))
     assert listFiles == snapshot
 
 def test_readfilesFile(snapshot):
@@ -49,7 +49,7 @@ def test_readfilesFile(snapshot):
     assert listFiles == snapshot
 
 def test_lookForInclude(snapshot):
-    inputFiles = ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False)
+    inputFiles = sorted(ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False))
     assert inputFiles == snapshot
 
 
