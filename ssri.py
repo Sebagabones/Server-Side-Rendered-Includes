@@ -143,7 +143,7 @@ def getListOfFilesToSearchFiles(inputFile, outputDir, templates, noWarnings, num
      return(filesToSearch, templatesDir, numWarnings)
 
 
-def checkFileForIncludes(filesToSearch, templateDir, numFilesChanged, verbose, numWarnings): # Returns a dict where templateFile : set( namedTuples(fileWithIncludeStatement, includeStatementTest)  )
+def checkFilesForIncludes(filesToSearch, templateDir, numFilesChanged, verbose, numWarnings): # Returns a dict where templateFile : set( namedTuples(fileWithIncludeStatement, includeStatementTest)  )
      dictionaryOfFilesToInclude = dict()
      fileNameIncludeTextStruct = namedtuple("fileNameIncludeText", ["fileName", "includeText"])
      for fileName in filesToSearch:
@@ -195,9 +195,11 @@ def writeTextToFiles(templateFile, fileList, verbose):         # write the provi
      verbosePrint(verbose, "\n")
      textToAdd = getTextForIncludeFile(templateFile)
      typesOfInclude = set([fileIn.includeText for fileIn in fileList])
+
      fileListThatIsAList = [fileIn.fileName for fileIn in fileList]
-     with fileinput.FileInput(fileListThatIsAList, inplace=True) as files:
-          for includeText in typesOfInclude:
+     for includeText in typesOfInclude:
+          # print(includeText)
+          with fileinput.FileInput(fileListThatIsAList, inplace=True) as files:
                for line in files:
           # print(f"would be replacing {fileIn.includeText} with {textToAdd}")
                     print(line.replace(includeText, textToAdd), end='')
@@ -284,7 +286,7 @@ def main():
           for fileSearchIndex in range(len(filesToSearch[0])):
                copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex])
                fileCreatedCounter += 1
-          dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFileForIncludes(filesToSearch[1], templatesDir[0], numFilesChanged, verbose, numWarnings) # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
+          dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFilesForIncludes(filesToSearch[1], templatesDir[0], numFilesChanged, verbose, numWarnings) # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
           for template in dictOfTemplatesToFiles.items():
                writeTextToFiles(template[0], template[1], verbose)
 
@@ -293,7 +295,7 @@ def main():
           for fileSearchIndex in range(len(filesToSearch[0])):
                copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex])
                fileCreatedCounter += 1
-          dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFileForIncludes(filesToSearch[1], args.templates_dir[0], numFilesChanged, verbose, numWarnings)  # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
+          dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFilesForIncludes(filesToSearch[1], args.templates_dir[0], numFilesChanged, verbose, numWarnings)  # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
           # print(dictOfTemplatesToFiles)
           for template in dictOfTemplatesToFiles.items():
                writeTextToFiles(template[0], template[1], verbose)

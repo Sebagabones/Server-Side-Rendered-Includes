@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import ssri
 import sys
-
+import filecmp
 
 def test_verbose(snapshot):
     verbose = ssri.parse_args(["-v", "inputFile"])
@@ -43,21 +43,55 @@ def test_readfilesFile(snapshot):
     listFiles = ssri.getListOfFilesToSearchFiles(["testFolder/staging/emacsFiles.html"], ["testFolder/sites"], "testFolder/templates", False, 0, False)
     assert listFiles == snapshot
 
+def test_lookForInclude(snapshot):
+    inputFiles = ssri.getListOfFilesToSearchDir("testFolder/staging", ["testFolder/sites"], True, False)
+    assert inputFiles == snapshot
+
+
 def test_checkCopyFiles(snapshot):
     inputFiles = ssri.getListOfFilesToSearchDir("testFolder/staging", ["testFolder/sites"], True, False)
     fileCreatedCounter = 0
     numFilesCopied = 0
     for fileSearchIndex in range(len(inputFiles[0])):
-        numFilesCopied += ssri.copyFilesToNewLocation(inputFiles[1][fileSearchIndex], inputFiles[0][fileSearchIndex], fileCreatedCounter)
+        ssri.copyFilesToNewLocation(inputFiles[1][fileSearchIndex], inputFiles[0][fileSearchIndex])
+        numFilesCopied += 1
     assert numFilesCopied == snapshot
+
+def test_getIncludeFileText(snapshot):
+    inputFiles = ssri.getListOfFilesToSearchDir("testFolder/staging", ["testFolder/sites"], True, False)
+    fileCreatedCounter = 0
+    for fileSearchIndex in range(len(inputFiles[0])):
+        ssri.copyFilesToNewLocation(inputFiles[1][fileSearchIndex], inputFiles[0][fileSearchIndex])
+    checkIncludes = ssri.checkFilesForIncludes(inputFiles[0], "testFolder/templates", 0, False, 0)
+    assert checkIncludes == snapshot
 
 
 def test_checkFiles(snapshot):
     inputFiles = ssri.getListOfFilesToSearchDir("testFolder/staging", ["testFolder/sites"], True, False)
+    knownGoodFiles = ssri.getListOfFilesToSearchDir("testFolder/staging", ["testFolder/sites"], True, False) # This is me being lazy and using getListOfFiles to get an array for the known good copy of sites
     fileCreatedCounter = 0
     for fileSearchIndex in range(len(inputFiles[0])):
-        ssri.copyFilesToNewLocation(inputFiles[1][fileSearchIndex], inputFiles[0][fileSearchIndex], fileCreatedCounter)
-    checkIncludes = []
-    for files in inputFiles[1]:
-        checkIncludes.append(ssri.checkFileForIncludes(files, "testFolder/templates", 0, False, 0))
-    assert checkIncludes == snapshot
+        ssri.copyFilesToNewLocation(inputFiles[1][fileSearchIndex], inputFiles[0][fileSearchIndex])
+    checkIncludes = ssri.checkFilesForIncludes(inputFiles[0], "testFolder/templates", 0, False, 0)
+    for template in checkIncludes[0].items():
+        ssri.writeTextToFiles(template[0], template[1], True)
+    arrayOfMatchesOfNot = []    # an array that will be filled with the output of filecmp
+    for filesToCompare in zip(inputFiles[1],knownGoodFiles[1]):
+        sitesFile, knownGoodFile = tuple(filesToCompare)
+        arrayOfMatchesOfNot.append(filecmp.cmp(sitesFile, knownGoodFile, shallow=False))
+    assert arrayOfMatchesOfNot == snapshot
+
+def test_checkFiles(snapshot):
+    inputFiles = ssri.getListOfFilesToSearchDir("testFolder/staging", ["testFolder/sites"], True, False)
+    knownGoodFiles = ssri.getListOfFilesToSearchDir("testFolder/staging", ["testFolder/sites"], True, False) # This is me being lazy and using getListOfFiles to get an array for the known good copy of sites
+    fileCreatedCounter = 0
+    for fileSearchIndex in range(len(inputFiles[0])):
+        ssri.copyFilesToNewLocation(inputFiles[1][fileSearchIndex], inputFiles[0][fileSearchIndex])
+    checkIncludes = ssri.checkFilesForIncludes(inputFiles[0], "testFolder/templates", 0, False, 0)
+    for template in checkIncludes[0].items():
+        ssri.writeTextToFiles(template[0], template[1], True)
+    arrayOfMatchesOfNot = []    # an array that will be filled with the output of filecmp
+    for filesToCompare in zip(inputFiles[1],knownGoodFiles[1]):
+        sitesFile, knownGoodFile = tuple(filesToCompare)
+        arrayOfMatchesOfNot.append(filecmp.cmp(sitesFile, knownGoodFile, shallow=False))
+    assert arrayOfMatchesOfNot == snapshot

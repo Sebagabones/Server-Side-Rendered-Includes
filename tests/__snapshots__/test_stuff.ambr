@@ -4,25 +4,65 @@
 # ---
 # name: test_checkFiles
   list([
-    0,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
+    True,
+    True,
+    True,
+    True,
+    True,
+    True,
+    True,
+    True,
+    True,
+    True,
+    True,
+    True,
   ])
 # ---
 # name: test_dir
   Namespace(dir=True, inputFile=['dir'], templates_dir=None, output='.', no_warnings=False, verbose=False)
 # ---
+# name: test_getIncludeFileText
+  tuple(
+    dict({
+    }),
+    0,
+    0,
+  )
+# ---
 # name: test_infile
   Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output='.', no_warnings=False, verbose=False)
+# ---
+# name: test_lookForInclude
+  tuple(
+    list([
+      'testFolder/staging/index.html',
+      'testFolder/staging/myRack.html',
+      'testFolder/staging/bonescrawlhome.html',
+      'testFolder/staging/bonesrunhome.html',
+      'testFolder/staging/bonesboundhome.html',
+      'testFolder/staging/report.html',
+      'testFolder/staging/template.html',
+      'testFolder/staging/bonescallhome.html',
+      'testFolder/staging/404.html',
+      'testFolder/staging/emacsFiles.html',
+      'testFolder/staging/Power7.html',
+      'testFolder/staging/contact.html',
+    ]),
+    list([
+      'testFolder/sites/index.html',
+      'testFolder/sites/myRack.html',
+      'testFolder/sites/bonescrawlhome.html',
+      'testFolder/sites/bonesrunhome.html',
+      'testFolder/sites/bonesboundhome.html',
+      'testFolder/sites/report.html',
+      'testFolder/sites/template.html',
+      'testFolder/sites/bonescallhome.html',
+      'testFolder/sites/404.html',
+      'testFolder/sites/emacsFiles.html',
+      'testFolder/sites/Power7.html',
+      'testFolder/sites/contact.html',
+    ]),
+  )
 # ---
 # name: test_readfilesDir
   tuple(
