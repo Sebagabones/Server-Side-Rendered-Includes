@@ -30,6 +30,9 @@ ssri = "ssri:main"
 Homepage = "https://github.com/Sebagabones/Server-Side-Rendered-Includes"
 
 [tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
 addopts = [
     "--import-mode=importlib",
 ]
