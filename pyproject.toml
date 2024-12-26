@@ -24,7 +24,7 @@ classifiers = [
 ]
 
 [project.scripts]
-ssri = "ssri_src.ssri:main"
+ssri = "ssri:main"
 
 [project.urls]
 Homepage = "https://github.com/Sebagabones/Server-Side-Rendered-Includes"
