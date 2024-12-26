@@ -33,21 +33,7 @@
   Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output='.', no_warnings=False, verbose=False)
 # ---
 # name: test_lookForInclude
-  tuple(
-    list([
-      'tests/testFolder/staging/index.html',
-      'tests/testFolder/staging/myRack.html',
-      'tests/testFolder/staging/bonescrawlhome.html',
-      'tests/testFolder/staging/bonesrunhome.html',
-      'tests/testFolder/staging/bonesboundhome.html',
-      'tests/testFolder/staging/report.html',
-      'tests/testFolder/staging/template.html',
-      'tests/testFolder/staging/bonescallhome.html',
-      'tests/testFolder/staging/404.html',
-      'tests/testFolder/staging/emacsFiles.html',
-      'tests/testFolder/staging/Power7.html',
-      'tests/testFolder/staging/contact.html',
-    ]),
+  list([
     list([
       'tests/testFolder/sites/index.html',
       'tests/testFolder/sites/myRack.html',
@@ -62,24 +48,24 @@
       'tests/testFolder/sites/Power7.html',
       'tests/testFolder/sites/contact.html',
     ]),
-  )
+    list([
+      'tests/testFolder/staging/index.html',
+      'tests/testFolder/staging/myRack.html',
+      'tests/testFolder/staging/bonescrawlhome.html',
+      'tests/testFolder/staging/bonesrunhome.html',
+      'tests/testFolder/staging/bonesboundhome.html',
+      'tests/testFolder/staging/report.html',
+      'tests/testFolder/staging/template.html',
+      'tests/testFolder/staging/bonescallhome.html',
+      'tests/testFolder/staging/404.html',
+      'tests/testFolder/staging/emacsFiles.html',
+      'tests/testFolder/staging/Power7.html',
+      'tests/testFolder/staging/contact.html',
+    ]),
+  ])
 # ---
 # name: test_readfilesDir
-  tuple(
-    list([
-      'tests/testFolder/staging/index.html',
-      'tests/testFolder/staging/myRack.html',
-      'tests/testFolder/staging/bonescrawlhome.html',
-      'tests/testFolder/staging/bonesrunhome.html',
-      'tests/testFolder/staging/bonesboundhome.html',
-      'tests/testFolder/staging/report.html',
-      'tests/testFolder/staging/template.html',
-      'tests/testFolder/staging/bonescallhome.html',
-      'tests/testFolder/staging/404.html',
-      'tests/testFolder/staging/emacsFiles.html',
-      'tests/testFolder/staging/Power7.html',
-      'tests/testFolder/staging/contact.html',
-    ]),
+  list([
     list([
       'tests/testFolder/sites/index.html',
       'tests/testFolder/sites/myRack.html',
@@ -94,7 +80,21 @@
       'tests/testFolder/sites/Power7.html',
       'tests/testFolder/sites/contact.html',
     ]),
-  )
+    list([
+      'tests/testFolder/staging/index.html',
+      'tests/testFolder/staging/myRack.html',
+      'tests/testFolder/staging/bonescrawlhome.html',
+      'tests/testFolder/staging/bonesrunhome.html',
+      'tests/testFolder/staging/bonesboundhome.html',
+      'tests/testFolder/staging/report.html',
+      'tests/testFolder/staging/template.html',
+      'tests/testFolder/staging/bonescallhome.html',
+      'tests/testFolder/staging/404.html',
+      'tests/testFolder/staging/emacsFiles.html',
+      'tests/testFolder/staging/Power7.html',
+      'tests/testFolder/staging/contact.html',
+    ]),
+  ])
 # ---
 # name: test_readfilesFile
   tuple(
