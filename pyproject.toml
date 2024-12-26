@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ssri"
+version = "0.0.1"
+authors = [
+  { name="Sebastian Gazey", email="bones@ucc.asn.au"},
+]
+description = "A 2024 take on 2004 tech - effectively something that does what Apache Server Side Includes did, but at build time"
+readme = "README.md"
+requires-python = ">=3.8"
+
+license = {file = "LICENSE.md"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Build Tools"
+]
+
+[project.scripts]
+ssri = "ssri_src.ssri:main"
+
+[project.urls]
+Homepage = "https://github.com/Sebagabones/Server-Side-Rendered-Includes"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+testpaths = [
+  "tests",
+]
