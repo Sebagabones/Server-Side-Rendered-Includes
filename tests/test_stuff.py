@@ -41,16 +41,18 @@ def test_templates_output_infile(snapshot):
     assert filecheck == snapshot
 
 def test_readfilesDir(snapshot):
-    listFiles = sorted(ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False ))
-    assert listFiles == snapshot
+    listFiles = ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False )
+    listFilesSort = (sorted(listFiles[0]), sorted(listFiles[1]))
+    assert listFilesSort == snapshot
 
 def test_readfilesFile(snapshot):
     listFiles = ssri.getListOfFilesToSearchFiles(["tests/testFolder/staging/emacsFiles.html"], ["tests/testFolder/sites"], "tests/testFolder/templates", False, 0, False)
     assert listFiles == snapshot
 
 def test_lookForInclude(snapshot):
-    inputFiles = sorted(ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False))
-    assert inputFiles == snapshot
+    inputFiles = ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False)
+    inputFilesSort = (sorted(inputFiles[0]), sorted(inputFiles[1]))
+    assert inputFilesSort == snapshot
 
 
 def test_checkCopyFiles(snapshot):
