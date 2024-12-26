@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #import ssri
 # import ssri
-from src import ssri
+import ssri
 import sys
 import filecmp
 import pytest

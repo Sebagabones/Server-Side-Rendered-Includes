@@ -24,14 +24,14 @@ classifiers = [
 ]
 
 [project.scripts]
-ssri = "ssri:main"
+ssri = "ssri.ssri:main"
 
 [project.urls]
 Homepage = "https://github.com/Sebagabones/Server-Side-Rendered-Includes"
 
 [tool.pytest.ini_options]
 pythonpath = [
-  "src"
+  "ssri"
 ]
 #addopts = [
 #    "--import-mode=importlib",
