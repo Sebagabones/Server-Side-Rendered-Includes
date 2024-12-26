@@ -33,9 +33,9 @@ Homepage = "https://github.com/Sebagabones/Server-Side-Rendered-Includes"
 pythonpath = [
   "src"
 ]
-addopts = [
-    "--import-mode=importlib",
-]
-testpaths = [
-  "tests",
-]
+#addopts = [
+#    "--import-mode=importlib",
+#]
+#testpaths = [
+#  "tests",
+#]
