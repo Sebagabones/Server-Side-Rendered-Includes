@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from collections import namedtuple
 import os
 import argparse
 from os import walk
@@ -17,7 +18,7 @@ CEND     = '\33[0m'
 
 def getListOfFilesToSearchDir(inputDir, outputDir, noWarnings, verbose):
      files = ([], [])           # first list is of orginal location, second is of new location
-     global numWarnings
+     
 
      for (dirpath, subdirs, filenames) in walk(inputDir): # breaks without dirnames, so that's staying here I guess lmao
           safeMode = False
@@ -142,58 +143,78 @@ def getListOfFilesToSearchFiles(inputFile, outputDir, templates, noWarnings, num
      return(filesToSearch, templatesDir, numWarnings)
 
 
-def checkFileForIncludes(fileName, templateDir, numFilesChanged, verbose, numWarnings):
+def checkFileForIncludes(filesToSearch, templateDir, numFilesChanged, verbose, numWarnings): # Returns a dict where templateFile : set( namedTuples(fileWithIncludeStatement, includeStatementTest)  )
+     dictionaryOfFilesToInclude = dict()
+     fileNameIncludeTextStruct = namedtuple("fileNameIncludeText", ["fileName", "includeText"])
+     for fileName in filesToSearch:
+          fileRead = open((fileName), "r")
+          fileReadIn = fileRead.readlines()
+          includeFiles = ([],[])     # first list is text found, second is the text to replace it with
 
-     fileRead = open((fileName), "r")
-     fileReadIn = fileRead.readlines()
-     includeFiles = ([],[])     # first list is text found, second is the text to replace it with
+          for line in fileReadIn:
+               includeFiles[0].extend(re.findall(r'<!--.*#include file=".+".*-->', line))
+               fileRead.close()
 
-     for line in fileReadIn:
-          includeFiles[0].extend(re.findall(r'<!--.*#include file=".+".*-->', line))
-     fileRead.close()
-     if(len(includeFiles[0]) != 0):
-          verboseMsg = f"{fileName} has match(es) with {includeFiles[0]}"
-          verbosePrint(verbose, verboseMsg)
-          copyOfInitialIncludesFile = includeFiles[0].copy()
-          for matchReg in copyOfInitialIncludesFile:
-               fileToRead = re.search(r'"(.+)"', matchReg).group().strip('"')
-
-               verboseMsg = f"Will attempt to be reading in in file: {templateDir + '/' + fileToRead}"
+          if(len(includeFiles[0]) != 0):
+               verboseMsg = f"{fileName} has match(es) with {includeFiles[0]}"
                verbosePrint(verbose, verboseMsg)
-               if not os.path.exists(templateDir + '/' + fileToRead):
-                    print(f"{CRED}! Could not find file: {templateDir +'/' + fileToRead}, which was requested by {fileName} - make sure you are following all the rules laid out about directory locations specfied in --help {CEND}\n")
-                    numWarnings += 1
-                    includeFiles[0].remove(matchReg) # remove the include file from list cause cant read it lol
-                    # print(includeFiles)
-                    continue
+               # copyOfInitialIncludesFile = includeFiles[0].copy()
+               for matchReg in includeFiles[0]:
+                    fileToRead = re.search(r'"(.+)"', matchReg).group().strip('"')
+                    fullPathOfInclude = templateDir +'/' + fileToRead
+                    verboseMsg = f"Will attempt to be reading in in file: {fullPathOfInclude}"
+                    verbosePrint(verbose, verboseMsg)
+                    if not os.path.exists(fullPathOfInclude):
+                         print(f"{CRED}! Could not find file: {fullPathOfInclude}, which was requested by {fileName} - make sure you are following all the rules laid out about directory locations specfied in --help {CEND}\n")
+                         numWarnings += 1
+                         continue
 
-               textIn = open(templateDir +"/" + fileToRead, "r")
-               textToCopyIn = textIn.read()
-               # print(textToCopyIn)
-               includeFiles[1].append(textToCopyIn)
-               textIn.close()
-          verbosePrint(verbose, "\n")
 
-     for index in range(len(includeFiles[0])):
-          with fileinput.FileInput(fileName, inplace=True) as files:
+                    fileNameIncludeText = fileNameIncludeTextStruct(fileName, matchReg)
+                    if fullPathOfInclude in dictionaryOfFilesToInclude.keys():
+                         dictionaryOfFilesToInclude[fullPathOfInclude].add(fileNameIncludeText)
+                    else:
+                         dictionaryOfFilesToInclude.update({fullPathOfInclude: {fileNameIncludeText}})
+               numFilesChanged += 1
+
+     return(dictionaryOfFilesToInclude, numFilesChanged, numWarnings)
+
+
+
+
+def getTextForIncludeFile(templateFile): # Returns the contents of the template file
+     textIn = open(templateFile, "r")
+     textToCopyIn = textIn.read()
+     # print(textToCopyIn)
+
+     textIn.close()
+     return(textToCopyIn)
+
+def writeTextToFiles(templateFile, fileList, verbose):         # write the provided template file into the fileList (which is actually a set of named tuples)
+     verbosePrint(verbose, "\n")
+     textToAdd = getTextForIncludeFile(templateFile)
+     for fileIn in fileList:
+
+          with fileinput.FileInput(fileIn.fileName, inplace=True) as files:
                for line in files:
-                    print(line.replace(includeFiles[0][index], includeFiles[1][index]), end='')
-     if(len(includeFiles[0]) > 1):
-          print(f"{CGREEN}✓ {fileName} successfully completed with {len(includeFiles[0])} templates added in {CEND}")
-          numFilesChanged += 1
-     elif(len(includeFiles[0]) == 1):
-          print(f"{CGREEN}✓ {fileName} successfully completed with {len(includeFiles[0])} template added in {CEND}")
-          numFilesChanged += 1
-     return(numFilesChanged)
+          # print(f"would be replacing {fileIn.includeText} with {textToAdd}")
+                    print(line.replace(fileIn.includeText, textToAdd), end='')
+     if(len(fileList) > 1):
+          print(f"{CGREEN}✓ {templateFile} successfully included in  {len(fileList)} files {CEND}")
+          # numFilesChanged += 1
+     elif(len(fileList) == 1):
+          print(f"{CGREEN}✓ {templateFile} successfully included in {len(fileList)} file {CEND}")
+          # numFilesChanged += 1
+     # return(numFilesChanged)
 
 
 def copyFilesToNewLocation(newFileLocation, oldFileLocation, fileCreatedCounter):
      # print(f"copying files from {oldFileLocation} to  {newFileLocation}")
      # print(f"newFileLocation {newFileLocation}")
-     fileCreatedCounter += 1
+     # fileCreatedCounter += 1
      os.makedirs(os.path.dirname(newFileLocation), exist_ok=True)
      shutil.copy2(oldFileLocation, newFileLocation)
-     return(fileCreatedCounter)
+     # return(fileCreatedCounter)
 
 
 def verbosePrint(verbose, msg):
@@ -214,7 +235,6 @@ def parse_args(args):
 
      # Future plan, make a flag that copies all files/dirs in directory over, not just .html files
      # Also in future maybe add in an ablity to nest include files in include files - this might already work tbh, or at least there is a janky way to do it lol
-     # Also do verbosity at some point
 
 
 
@@ -254,15 +274,29 @@ def main():
      if(filesToSearch == None):
           print(f"{CRED}! No files were able to be scanned, exiting {CEND}")
           exit()
-     for fileSearchIndex in range(len(filesToSearch[0])):
+
                # First copy files to new location
                # print(filesToSearch)
-               fileCreatedCounter = copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex], fileCreatedCounter)
-               if args.templates_dir is None: # Get templates from same dir as rest of html files
-                    numFilesChanged = checkFileForIncludes(filesToSearch[1][fileSearchIndex], templatesDir[0], numFilesChanged, verbose, numWarnings)
-               else:
-                    # print("filesToSearch[1][fileSearchIndex], args.templates_dir[0], numFilesChanged, verbose, numWarnings  ", filesToSearch[1][fileSearchIndex], args.templates_dir[0], numFilesChanged, verbose, numWarnings)
-                    numFilesChanged = checkFileForIncludes(filesToSearch[1][fileSearchIndex], args.templates_dir[0], numFilesChanged, verbose, numWarnings)
+     dictOfTemplatesToFiles = None
+     if args.templates_dir is None: # Get templates from same dir as rest of html files
+          for fileSearchIndex in range(len(filesToSearch[0])):
+               copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex], fileCreatedCounter)
+               fileCreatedCounter += 1
+          dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFileForIncludes(filesToSearch[1], templatesDir[0], numFilesChanged, verbose, numWarnings) # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
+          for template in dictOfTemplatesToFiles.items():
+               writeTextToFiles(template[0], template[1], verbose)
+
+          # numFilesChanged =
+     else:
+          for fileSearchIndex in range(len(filesToSearch[0])):
+               copyFilesToNewLocation(filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex], fileCreatedCounter)
+               fileCreatedCounter += 1
+          dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFileForIncludes(filesToSearch[1], args.templates_dir[0], numFilesChanged, verbose, numWarnings)  # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
+          # print(dictOfTemplatesToFiles)
+          for template in dictOfTemplatesToFiles.items():
+               writeTextToFiles(template[0], template[1], verbose)
+
+
      if(numWarnings == 0):
           printColour = CGREEN
           includeText = "✓"
