@@ -15,7 +15,7 @@ CRED = "\33[91m"
 CGREEN = "\33[92m"
 CYELLOW = "\33[93m"
 CEND = "\33[0m"
-
+# TODO: I probably want to add a feature where templates accept multiple template directories
 
 def getListOfFilesToSearchDir(inputDir, outputDir, noWarnings, verbose):
     files = ([], [])  # first list is of orginal location, second is of new location
