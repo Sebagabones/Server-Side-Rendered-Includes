@@ -263,7 +263,7 @@ def writeTextToFiles(
 
 
 def copyFilesToNewLocation(newFileLocation, oldFileLocation):
-    # print(f"copying files from {oldFileLocation} to  {newFileLocation}")
+    # print(f"copying files from {oldFileLocation} to {newFileLocation}")
     # print(f"newFileLocation {newFileLocation}")
     # fileCreatedCounter += 1
     os.makedirs(os.path.dirname(newFileLocation), exist_ok=True)
@@ -317,11 +317,21 @@ def parse_args(args):
         action="store_true",
         help="Increased printing what the script is doing at any time",
     )
+    parser.add_argument(
+        "-c",
+        "--copy-all",
+        action="store_true",
+        help="Copy all files in the specified directory (must be used with -d and a single source directory)",
+    )
     return parser.parse_args(args)
 
     # Future plan, make a flag that copies all files/dirs in directory over, not just .html files
     # Also in future maybe add in an ablity to nest include files in include files - this might already work tbh, or at least there is a janky way to do it lol
 
+
+
+def copyAllFiles(source, output):
+            shutil.copytree(source, output, dirs_exist_ok=True)
 
 def main():
     args = parse_args(sys.argv[1:])
@@ -340,6 +350,12 @@ def main():
 
     os.makedirs(os.path.dirname(args.output[0] + "/"), exist_ok=True)
     filesToSearch = None
+
+    if args.copy_all:
+        copyAllFiles(args.inputFile[0], args.output[0])
+        noWarnings = True   # Turns off warnings as we will be overwriting new copied files anyway
+
+
     if args.dir:
         for directory in args.inputFile:
             # Go through dir checking all files for an include
