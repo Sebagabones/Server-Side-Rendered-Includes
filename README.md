@@ -12,7 +12,7 @@ The include statement is simply a html comment on a line where you want the enti
 Finally, I have only tested this on Linux, it probably works on MacOS, and probably doesn't work on Windows.
 
  ```help
- usage: ssri [-h] [-d] [-t TEMPLATES_DIR] [-o OUTPUT] [--no-warnings] [-v] inputFile [inputFile ...]
+ usage: ssri [-h] [-d] [-t TEMPLATES_DIR] [-o OUTPUT] [--no-warnings] [-v] [-c] inputFile [inputFile ...]
 ```
 
 ### Installation
@@ -28,6 +28,7 @@ There is a simple example setup in the `Example/` folder, which shows a simple w
 `-o` is the directory to output the generated files to, if not provided it using the current directory.
 `--no-warnings` silences any warnings, and just runs without worrying if it overwrites any files.
 `-v` explains what the script is doing, turns on verbose mode
+`-c` copies the entire source (input) directory to the output directory, the `-d` flag must be used, and only one directory may be provided 
 
 #### Tips
 By putting the output files into their own designated folder, so as long as you setup your webserver correctly, you can prevent the templates and source files from being accessed, by setting your webserver's root folder to be output folder.
