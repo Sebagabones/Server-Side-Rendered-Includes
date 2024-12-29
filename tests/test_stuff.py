@@ -6,6 +6,8 @@ import sys
 import filecmp
 import pytest
 from pathlib import Path
+import os
+import shutil
 
 
 def test_verbose(snapshot):
@@ -90,7 +92,25 @@ def test_checkFiles(snapshot):
         arrayOfMatchesOfNot.append(filecmp.cmp(sitesFile, knownGoodFile, shallow=False))
     assert arrayOfMatchesOfNot == snapshot
 
-# def test_checkFiles(snapshot):
+
+def test_copyAllFiles(snapshot):
+    if(os.path.exists("tests/testFolder/blankDir")):
+        if os.path.isfile("tests/testFolder/blankDir"):
+            os.remove("tests/testFolder/blankDir")
+        else:
+            shutil.rmtree("tests/testFolder/blankDir")
+    ssri.copyAllFiles("tests/testFolder/staging","tests/testFolder/blankDir")
+    outputCheck = []
+    for root, dirs, files in os.walk("tests/testFolder/blankDir"): # Gratefully borrowed from here https://stackoverflow.com/questions/9727673/list-directory-tree-structure-in-python
+        level = root.replace("tests/testFolder/blankDir", '').count(os.sep) # As dir structure is important to track if it changes in this test so formatting the output makes sense
+        indent = ' ' * 4 * (level)
+        outputCheck.append(('{}{}/'.format(indent, os.path.basename(root))))
+        subindent = ' ' * 4 * (level + 1)
+        for f in files:
+            outputCheck.append(('{}{}'.format(subindent, f)))
+    shutil.rmtree("tests/testFolder/blankDir")
+    assert outputCheck == snapshot
+
 #     inputFiles = ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False)
 #     knownGoodFiles = ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False) # This is me being lazy and using getListOfFiles to get an array for the known good copy of sites
 #     fileCreatedCounter = 0

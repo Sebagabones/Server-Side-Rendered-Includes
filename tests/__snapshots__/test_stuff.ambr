@@ -18,8 +18,35 @@
     True,
   ])
 # ---
+# name: test_copyAllFiles
+  list([
+    'blankDir/',
+    '    index.html',
+    '    myRack.html',
+    '    bonescrawlhome.html',
+    '    bonesrunhome.html',
+    '    bonesboundhome.html',
+    '    report.html',
+    '    template.html',
+    '    bonescallhome.html',
+    '    404.html',
+    '    robots.txt',
+    '    emacsFiles.html',
+    '    Power7.html',
+    '    contact.html',
+    '    static/',
+    '        theDreadedTexFile.tex',
+    '        styles.css',
+    '        favicon.ico',
+    '        theIdioticTimeDistributionOfAReport.pdf',
+    '    js/',
+    '        preloadImages.js',
+    '        minimal-theme-switcher.js',
+    '        anotherThemeChanger.js',
+  ])
+# ---
 # name: test_dir
-  Namespace(dir=True, inputFile=['dir'], templates_dir=None, output='.', no_warnings=False, verbose=False)
+  Namespace(dir=True, inputFile=['dir'], templates_dir=None, output='.', no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_getIncludeFileText
   tuple(
@@ -30,7 +57,7 @@
   )
 # ---
 # name: test_infile
-  Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output='.', no_warnings=False, verbose=False)
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output='.', no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_lookForInclude
   tuple(
@@ -111,17 +138,17 @@
   )
 # ---
 # name: test_templates_dir
-  Namespace(dir=True, inputFile=['dir'], templates_dir=['templates'], output='.', no_warnings=False, verbose=False)
+  Namespace(dir=True, inputFile=['dir'], templates_dir=['templates'], output='.', no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_templates_infile
-  Namespace(dir=False, inputFile=['inputFile'], templates_dir=['template'], output='.', no_warnings=False, verbose=False)
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=['template'], output='.', no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_templates_output_dir
-  Namespace(dir=True, inputFile=['dir'], templates_dir=['templates'], output=['output'], no_warnings=False, verbose=False)
+  Namespace(dir=True, inputFile=['dir'], templates_dir=['templates'], output=['output'], no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_templates_output_infile
-  Namespace(dir=False, inputFile=['inputFile'], templates_dir=['template'], output=['output'], no_warnings=False, verbose=False)
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=['template'], output=['output'], no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_verbose
-  Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output='.', no_warnings=False, verbose=True)
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output='.', no_warnings=False, verbose=True, copy_all=False)
 # ---
