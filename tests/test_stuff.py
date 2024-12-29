@@ -103,13 +103,13 @@ def test_copyAllFiles(snapshot):
     outputCheck = []
     for root, dirs, files in os.walk("tests/testFolder/blankDir"): # Gratefully borrowed from here https://stackoverflow.com/questions/9727673/list-directory-tree-structure-in-python
         level = root.replace("tests/testFolder/blankDir", '').count(os.sep) # As dir structure is important to track if it changes in this test so formatting the output makes sense
-        indent = ' ' * 4 * (level)
+        indent = 'a' * (level)
         outputCheck.append(('{}{}/'.format(indent, os.path.basename(root))))
-        subindent = ' ' * 4 * (level + 1)
+        subindent = 'z'* (level + 1)
         for f in files:
             outputCheck.append(('{}{}'.format(subindent, f)))
     shutil.rmtree("tests/testFolder/blankDir")
-    assert outputCheck == snapshot
+    assert sorted(outputCheck) == snapshot # For some reason Arch and Debian seem to sort files differently idk
 
 #     inputFiles = ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False)
 #     knownGoodFiles = ssri.getListOfFilesToSearchDir("tests/testFolder/staging", ["tests/testFolder/sites"], True, False) # This is me being lazy and using getListOfFiles to get an array for the known good copy of sites
