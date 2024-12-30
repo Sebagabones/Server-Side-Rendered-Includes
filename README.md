@@ -16,7 +16,8 @@ Finally, I have only tested this on Linux, it probably works on MacOS, and proba
 ```
 
 ### Installation
-Installation is easy, as this has no external dependencies (aside from Python) - either download the `ssri.py` file, or clone this repo (at some point I may put this on pip).
+Installation is easy, as SSRI is on PyPi, so simply run `pip install ssri`. Alternatively, as this has no external dependencies (aside from Python) - either download the `ssri.py` file, or clone this repo.
+
 
 ### Usage
 There is a simple example setup in the `Example/` folder, which shows a simple way of using `ssri`, so this is more of a run through of the argument options:
