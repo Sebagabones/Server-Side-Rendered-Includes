@@ -44,7 +44,7 @@ I wanted to use PUG, but found that the html2pug converters didn't work well, an
 
 Hence, I took a lot of inspiration from SSI, but decided that preprocessing the HTML would be easier.
 
-In theory, this should work with most other libraries/backends, which is another benefit to it, as you would simply run this before starting the server. While it *kinda* works with big frameworks/libraries like React and Jinja, the only issue I can think of is currently only HTML files are copied to the output folder. I do plan to add an option that copies the entire input dir to the output dir, and only updates the HTML, which would solve this issue, and make it pretty flexible for other setups. Likewise, I will probably add an argument that allows you to select with files types you want to search in, allowing for more uses with `.jsx` files, and possibly CSS files ect.
+In theory, this should work with most other libraries/backends, which is another benefit to it, as you would simply run this before starting the server. While it *kinda* works with big frameworks/libraries like React and Jinja - but I will probably need add an argument that allows you to select which files types you want to search in, allowing for more uses with `.jsx` files, for that to work well.
 
 
 ### Use cases:
