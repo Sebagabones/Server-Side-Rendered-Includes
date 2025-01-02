@@ -241,7 +241,7 @@ def getTextForIncludeFile(templateFile):  # Returns the contents of the template
 
 
 def writeTextToFiles(
-    templateFile, fileList, verbose
+        templateFile, fileList, verbose
 ):  # write the provided template file into the fileList (which is actually a set of named tuples)
     # TODO: Change this to do multithreading - will want to swap out from using fileinput when you do this though
     verbosePrint(verbose, "\n")
@@ -259,13 +259,12 @@ def writeTextToFiles(
         print(
             f"{CGREEN}✓ {templateFile} successfully included in  {len(fileList)} files {CEND}"
         )
-        # numFilesChanged += 1
     elif len(fileList) == 1:
         print(
             f"{CGREEN}✓ {templateFile} successfully included in {len(fileList)} file {CEND}"
         )
         # numFilesChanged += 1
-    # return(numFilesChanged)
+
 
 
 def copyFilesToNewLocation(newFileLocation, oldFileLocation):
@@ -351,7 +350,8 @@ def main():
     numFilesChanged = (
         0  # Number of files that have had include statements with modifications
     )
-    global numWarnings
+    numIncludeStatements = 0
+    # global numWarnings
     numWarnings = 0
 
     os.makedirs(os.path.dirname(args.output[0] + "/"), exist_ok=True)
@@ -397,35 +397,20 @@ def main():
         # First copy files to new location
         # print(filesToSearch)
     dictOfTemplatesToFiles = None
+    for fileSearchIndex in range(len(filesToSearch[0])):
+            copyFilesToNewLocation(
+                filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex]
+            )
+            fileCreatedCounter += 1
     if args.templates_dir is None:  # Get templates from same dir as rest of html files
-        for fileSearchIndex in range(len(filesToSearch[0])):
-            copyFilesToNewLocation(
-                filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex]
-            )
-            fileCreatedCounter += 1
-        dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFilesForIncludes(
-            filesToSearch[1], templatesDir[0], numFilesChanged, verbose, numWarnings
-        )  # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
-        for template in dictOfTemplatesToFiles.items():
-            writeTextToFiles(template[0], template[1], verbose)
-
-        # numFilesChanged =
+                dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFilesForIncludes(filesToSearch[1], templatesDir[0], numFilesChanged, verbose, numWarnings)  # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
     else:
-        for fileSearchIndex in range(len(filesToSearch[0])):
-            copyFilesToNewLocation(
-                filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex]
-            )
-            fileCreatedCounter += 1
-        dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFilesForIncludes(
-            filesToSearch[1],
-            args.templates_dir[0],
-            numFilesChanged,
-            verbose,
-            numWarnings,
-        )  # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
-        # print(dictOfTemplatesToFiles)
-        for template in dictOfTemplatesToFiles.items():
-            writeTextToFiles(template[0], template[1], verbose)
+                dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFilesForIncludes(filesToSearch[1], args.templates_dir[0], numFilesChanged, verbose, numWarnings)  # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
+
+    for template in dictOfTemplatesToFiles.items():
+                writeTextToFiles(template[0], template[1], verbose)
+                numIncludeStatements += len(template[1])
+
 
     if numWarnings == 0:
         printColour = CGREEN
@@ -433,9 +418,10 @@ def main():
     else:
         printColour = CRED
         includeText = "!"
+
     if args.dir:
         print(
-            f"{printColour}{includeText} Looked at {fileCreatedCounter} files in {args.inputFile[0]}, found {numFilesChanged} file(s) with include statements, and output files to {args.output[0]} {CEND}"
+            f"{printColour}{includeText} Looked at {fileCreatedCounter} files in {args.inputFile[0]}, found {numFilesChanged} file(s) with include statements (with a total of {numIncludeStatements} include statements found), and output files to {args.output[0]} {CEND}"
         )
     if numWarnings == 1:
         print(f"{printColour}{includeText} {numWarnings} error encountered {CEND}")
