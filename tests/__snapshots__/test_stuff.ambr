@@ -46,7 +46,7 @@
   ])
 # ---
 # name: test_dir
-  Namespace(dir=True, inputFile=['dir'], templates_dir=None, output='.', no_warnings=False, verbose=False, copy_all=False)
+  Namespace(dir=True, inputFile=['dir'], templates_dir=None, output=['./output'], no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_getIncludeFileText
   tuple(
@@ -57,7 +57,7 @@
   )
 # ---
 # name: test_infile
-  Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output='.', no_warnings=False, verbose=False, copy_all=False)
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output=['./output'], no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_lookForInclude
   tuple(
@@ -138,10 +138,10 @@
   )
 # ---
 # name: test_templates_dir
-  Namespace(dir=True, inputFile=['dir'], templates_dir=['templates'], output='.', no_warnings=False, verbose=False, copy_all=False)
+  Namespace(dir=True, inputFile=['dir'], templates_dir=['templates'], output=['./output'], no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_templates_infile
-  Namespace(dir=False, inputFile=['inputFile'], templates_dir=['template'], output='.', no_warnings=False, verbose=False, copy_all=False)
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=['template'], output=['./output'], no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_templates_output_dir
   Namespace(dir=True, inputFile=['dir'], templates_dir=['templates'], output=['output'], no_warnings=False, verbose=False, copy_all=False)
@@ -150,5 +150,5 @@
   Namespace(dir=False, inputFile=['inputFile'], templates_dir=['template'], output=['output'], no_warnings=False, verbose=False, copy_all=False)
 # ---
 # name: test_verbose
-  Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output='.', no_warnings=False, verbose=True, copy_all=False)
+  Namespace(dir=False, inputFile=['inputFile'], templates_dir=None, output=['./output'], no_warnings=False, verbose=True, copy_all=False)
 # ---

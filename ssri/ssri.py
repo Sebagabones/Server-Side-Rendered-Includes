@@ -152,7 +152,7 @@ def getListOfFilesToSearchFiles(
             verboseMsg = "filename(s) are " + str(re.findall(r"([^\/]+$)", str(files)))
             verbosePrint(verbose, verboseMsg)
             filesToSearch[1].append(
-                outputDir[0] + "/" + re.findall(r"([^\/]+$)", str(files))[0]
+                outputDir[0] + "/" + re.findall(r"([^\/]+$)", str(files))[0] # This gets the filename of the file without dir path
             )
 
         # print(filesToSearch)
