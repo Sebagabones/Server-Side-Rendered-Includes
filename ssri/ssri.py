@@ -283,20 +283,20 @@ def parse_args(args):
         "-d",
         "--dir",
         action="store_true",
-        help="Go through specified directory (recursively)",
+        help="go through specified directory (recursively)",
     )
     parser.add_argument(
         "inputFile",
         type=str,
         nargs="+",
-        help="The input file to parse, if -d is specified than this should be the directory to start searching in - if you are specifying the files without using -d please be aware that the file outputs will be in OUTPUT/filename, directory structure will not be kept. The files (if not using -d) must also all be the in same directory if you do not specify a directory for templates (otherwise the directory the last file given is in will be used for template searching)",
+        help="the input file to parse, if -d is specified than this should be the directory to start searching in - if you are specifying the files without using -d please be aware that the file outputs will be in OUTPUT/filename, directory structure will not be kept. The files (if not using -d) must also all be the in same directory if you do not specify a directory for templates (otherwise the directory the last file given is in will be used for template searching)",
     )
     parser.add_argument(
         "-t",
         "--templates-dir",
         nargs=1,
         type=str,
-        help="Collect template files from this directory",
+        help="collect template files from this directory",
     )
     parser.add_argument(
         "-o",
@@ -304,24 +304,24 @@ def parse_args(args):
         default=".",
         nargs=1,
         type=str,
-        help="The directory for output files to be placed (default is current directory)",
+        help="the directory for output files to be placed (default is current directory)",
     )
     parser.add_argument(
         "--no-warnings",
         action="store_true",
-        help="Don't print a warning when you are about to overwrite your existing files",
+        help="don't print a warning when you are about to overwrite your existing files",
     )
     parser.add_argument(
         "-v",
         "--verbose",
         action="store_true",
-        help="Increased printing what the script is doing at any time",
+        help="increased printing what the script is doing at any time",
     )
     parser.add_argument(
         "-c",
         "--copy-all",
         action="store_true",
-        help="Copy all files in the specified directory (must be used with -d and a single source directory)",
+        help="copy all files in the specified directory (must be used with -d and a single source directory)",
     )
     return parser.parse_args(args)
 
