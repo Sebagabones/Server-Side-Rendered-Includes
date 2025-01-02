@@ -113,6 +113,11 @@ def getListOfFilesToSearchFiles(
         lastGoodFile = files
         filePathOut = outputDir[0] + "/" + str(files)
         if os.path.exists(filePathOut) and noWarnings == False and safeMode == False:
+            if filePathOut.strip("./") in inputFile:
+                            print(
+                f"{CRED}You are about to overwrite your input file: {filePathOut}, exiting{CEND}"
+            )
+                            exit()
             print(
                 f"{CRED}Warning, you are about to overwrite {filePathOut}, do you want to continue (if you did not intend to do please look at the -o option)? y/N{CEND}"
             )
@@ -144,7 +149,8 @@ def getListOfFilesToSearchFiles(
                 outputDir[0] + "/" + str(files) + ".ssri"
             )  # Prevent overwriting exisiting files
         else:
-            print(re.findall(r"([^\/]+$)", str(files)))
+            verboseMsg = "filename(s) are " + str(re.findall(r"([^\/]+$)", str(files)))
+            verbosePrint(verbose, verboseMsg)
             filesToSearch[1].append(
                 outputDir[0] + "/" + re.findall(r"([^\/]+$)", str(files))[0]
             )
@@ -301,7 +307,7 @@ def parse_args(args):
     parser.add_argument(
         "-o",
         "--output",
-        default=".",
+        default=["./output"],
         nargs=1,
         type=str,
         help="the directory for output files to be placed (default is current directory)",
