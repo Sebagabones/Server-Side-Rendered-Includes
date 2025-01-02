@@ -26,14 +26,14 @@ There is a simple example setup in the `Example/` folder, which shows a simple w
 `-h` prints out the help menu.
 `-d` specifies a directory to run through recursively (this will grab all the files in any subdir, keep the order/layout).
 `-t` specifies the directory to grab the templates from, if it is not provided it grabs templates from the input directory (or if the input was not a directory it uses the current directory).
-`-o` is the directory to output the generated files to, if not provided it using the current directory.
+`-o` is the directory to output the generated files to, if not provided it outputs to a directory `/output`.
 `--no-warnings` silences any warnings, and just runs without worrying if it overwrites any files.
 `-v` explains what the script is doing, turns on verbose mode
 `-c` copies the entire source (input) directory to the output directory, the `-d` flag must be used, and only one directory may be provided 
 
 #### Tips
 By putting the output files into their own designated folder, so as long as you setup your webserver correctly, you can prevent the templates and source files from being accessed, by setting your webserver's root folder to be output folder.
-If you want another example, go have a look at my personal website, which is using SSRI, the repository for that is [here](https://github.com/Sebagabones/mahoosivelygay). The command I use for templating this is `ssri -d staging -t templates -o sites`.
+If you want another example, go have a look at my personal website, which is using SSRI, the repository for that is [here](https://github.com/Sebagabones/mahoosivelygay). The command I use for templating this is `ssri -d staging -t templates -o sites -c` (you will have an error if you run this in this dir as my emacs config files are not in templates - that is fine).
 
 ### Why?
 I wanted something that worked without any dependencies, and didn't require learning a new markup style. The main goal for this was to be able to write pure plain HTML pages without using external libraries needing to be imported, and that didn't use JavaScript to load things in the browser. Could I have used something like NextJS for this? Probably - but I wanted something that would be very simple to use (albeit much less powerful).

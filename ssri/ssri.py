@@ -310,7 +310,7 @@ def parse_args(args):
         default=["./output"],
         nargs=1,
         type=str,
-        help="the directory for output files to be placed (default is current directory)",
+        help="the directory for output files to be placed (default is in './output')",
     )
     parser.add_argument(
         "--no-warnings",
