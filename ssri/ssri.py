@@ -188,9 +188,9 @@ def checkFilesForIncludes(
             [],
             [],
         )  # first list is text found, second is the text to replace it with
-
+        # print(re.findall(r'<!--.*#include file=".+".*-->', fileRead.read()))
         for line in fileReadIn:
-            includeFiles[0].extend(re.findall(r'<!--.*#include file=".+".*-->', line))
+            includeFiles[0].extend(re.findall(r'<!--.*#include file=["|\'].+["|\'].*-->', line)) # Now it shouldn't matter if someone uses " or ' (but why you not use " idk)
             fileRead.close()
 
         if len(includeFiles[0]) != 0:
@@ -198,7 +198,7 @@ def checkFilesForIncludes(
             verbosePrint(verbose, verboseMsg)
             # copyOfInitialIncludesFile = includeFiles[0].copy()
             for matchReg in includeFiles[0]:
-                fileToRead = re.search(r'"(.+)"', matchReg).group().strip('"')
+                fileToRead = re.search(r'["\'](.+)["\']', matchReg).group().strip('"').strip("'")
                 fullPathOfInclude = templateDir + "/" + fileToRead
                 verboseMsg = (
                     f"Will attempt to be reading in in file: {fullPathOfInclude}"
