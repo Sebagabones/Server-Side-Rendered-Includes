@@ -452,8 +452,10 @@ async def notMainAnyMore():
     else:
         print(f"{printColour}{includeText} {numWarnings} errors encountered {CEND}")
 
-async def main():
-    await(notMainAnyMore())
+def main():
+    asyncio.run(notMainAnyMore())
+
+
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
