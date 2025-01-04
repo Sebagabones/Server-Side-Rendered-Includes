@@ -8,6 +8,7 @@ import shutil
 import fileinput
 import readline  # I like having inputs work well with navigation - sue me
 import sys
+import asyncio
 # from termcolor import colored
 
 # Coloured Outputs Constants
@@ -240,9 +241,7 @@ def getTextForIncludeFile(templateFile):  # Returns the contents of the template
     return textToCopyIn
 
 
-def writeTextToFiles(
-        templateFile, fileList, verbose
-):  # write the provided template file into the fileList (which is actually a set of named tuples)
+async def writeTextToFiles(templateFile, fileList, verbose):  # write the provided template file into the fileList (which is actually a set of named tuples)
     # TODO: Change this to do multithreading - will want to swap out from using fileinput when you do this though
     verbosePrint(verbose, "\n")
     textToAdd = getTextForIncludeFile(templateFile)
@@ -338,7 +337,26 @@ def parse_args(args):
 def copyAllFiles(source, output):
             shutil.copytree(source, output, dirs_exist_ok=True)
 
-def main():
+
+async def copyAllFilesCaller(copyAll, inputFile, output):
+    numWarnings = 0
+    if copyAll:
+        if not os.path.exists(inputFile[0]):
+            print(
+                f"{CRED}! Input directory: {inputFile[0]} does not exist - exiting{CEND}"
+                )
+            numWarnings += 1
+            exit()
+        if os.path.isfile(inputFile[0]):
+            print(f"{CRED}! Input directory: {inputFile[0]} is a file, exiting{CEND}")
+            exit()
+        else:
+            os.makedirs(os.path.dirname(output[0] + "/"), exist_ok=True)
+            copyAllFiles(inputFile[0], output[0])
+
+    return(numWarnings)
+
+async def main():
     args = parse_args(sys.argv[1:])
 
     templatesDir = args.inputFile  # This *should* be fine?
@@ -354,23 +372,15 @@ def main():
     # global numWarnings
     numWarnings = 0
 
-    os.makedirs(os.path.dirname(args.output[0] + "/"), exist_ok=True)
+
     filesToSearch = None
 
+    copyAllFilesTask = asyncio.create_task(copyAllFilesCaller(args.copy_all, args.inputFile, args.output))
+
     if args.copy_all:
-        if not os.path.exists(args.inputFile[0]):
-            print(
-                f"{CRED}! Input directory: {args.inputFile[0]} does not exist - exiting{CEND}"
-                )
-            numWarnings += 1
-            exit()
-        if os.path.isfile(args.inputFile[0]):
-            print(f"{CRED}! Input directory: {args.inputFile[0]} is a file, exiting{CEND}")
-            exit()
-        copyAllFiles(args.inputFile[0], args.output[0])
         noWarnings = True   # Turns off warnings as we will be overwriting new copied files anyway
 
-
+    os.makedirs(os.path.dirname(args.output[0] + "/"), exist_ok=True)
     if args.dir:
         for directory in args.inputFile:
             # Go through dir checking all files for an include
@@ -406,6 +416,8 @@ def main():
         # First copy files to new location
         # print(filesToSearch)
     dictOfTemplatesToFiles = None
+    numWarningsFromCopyAll = await copyAllFilesTask
+    numWarnings += numWarningsFromCopyAll
     for fileSearchIndex in range(len(filesToSearch[0])):
             copyFilesToNewLocation(
                 filesToSearch[1][fileSearchIndex], filesToSearch[0][fileSearchIndex]
@@ -416,9 +428,9 @@ def main():
     else:
                 dictOfTemplatesToFiles, numFilesChanged, numWarnings = checkFilesForIncludes(filesToSearch[1], args.templates_dir[0], numFilesChanged, verbose, numWarnings)  # this is a dictionary where key is include file an values is a named tuple with fileName and includeText from the files that ask for the key
 
+    tasks = [writeTextToFiles(template[0], template[1], verbose) for template in dictOfTemplatesToFiles.items()] # This might break but heres hoping
     for template in dictOfTemplatesToFiles.items():
-                writeTextToFiles(template[0], template[1], verbose)
-                numIncludeStatements += len(template[1])
+        numIncludeStatements += len(template[1])
 
 
     if numWarnings == 0:
@@ -428,6 +440,9 @@ def main():
         printColour = CRED
         includeText = "!"
 
+
+    for task in asyncio.as_completed(tasks):
+        result = await task     # Urgh its late and I have no sleep - there is def a better solution than this but meh
     if args.dir:
         print(
             f"{printColour}{includeText} Looked at {fileCreatedCounter} files in {args.inputFile[0]}, found {numFilesChanged} file(s) with include statements (with a total of {numIncludeStatements} include statements found), and output files to {args.output[0]} {CEND}"
@@ -439,4 +454,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
