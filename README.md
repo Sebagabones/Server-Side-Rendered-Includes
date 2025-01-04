@@ -57,10 +57,10 @@ In theory, this should work with most other libraries/backends, which is another
 ### Use cases:
 I mean - the main use case was for my website lol. That said, it could be useful for anyone teaching/learning HTML, as it is a very simple concept that allows for (static) components to be reused across different pages, and reduces the learning new things load on anyone using it when compared to Gulp/Pug/React/Jinja. Basically, it allows for someone to learn the fundementals of HTML/CSS without needing a backend, but for them to still be able to save time without needing to copy HTML to different files (and imagine after copying your footer to each of your files, you realise you need to rename the footer's class).
 
-Basically, if you are wanting to use vanilla HTML/CSS in your website, and don't want to have to update a bunch of files everytime you change your footer, this might save you a bunch of time lol.
+If you are wanting to use vanilla HTML/CSS in your website, and don't want to have to update a bunch of files everytime you change your footer, this might save you a bunch of time lol.
 
 ### Future plans.
-Likewise, adding an argument that allows you to select with files types you want to search for include statements in is planned, as it would allow use with `.jsx` files, and possibly CSS files ect.
+Adding an argument that allows you to select which files types you want to search for include statements in is planned, as it would allow use with `.jsx` files, and possibly CSS files ect.
 Another future addition would be to add in the ablity to nest include statements in template files. This *might* already work, but I have not tested it, and there is the potential to get stuck in a endless loop, so for the time being I would not recommend include statements inside templates. 
  
 
