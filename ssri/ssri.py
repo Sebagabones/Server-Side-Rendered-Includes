@@ -358,6 +358,15 @@ def main():
     filesToSearch = None
 
     if args.copy_all:
+        if not os.path.exists(args.inputFile[0]):
+            print(
+                f"{CRED}! Input directory: {args.inputFile[0]} does not exist - exiting{CEND}"
+                )
+            numWarnings += 1
+            exit()
+        if os.path.isfile(args.inputFile[0]):
+            print(f"{CRED}! Input directory: {args.inputFile[0]} is a file, exiting{CEND}")
+            exit()
         copyAllFiles(args.inputFile[0], args.output[0])
         noWarnings = True   # Turns off warnings as we will be overwriting new copied files anyway
 
