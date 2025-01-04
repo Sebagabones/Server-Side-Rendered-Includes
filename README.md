@@ -33,7 +33,7 @@ There is a simple example setup in the `Example/` folder, which shows a simple w
 
 #### Tips
 By putting the output files into their own designated folder, so as long as you setup your webserver correctly, you can prevent the templates and source files from being accessed, by setting your webserver's root folder to be output folder.
-If you want another example, go have a look at my personal website, which is using SSRI, the repository for that is [here](https://github.com/Sebagabones/mahoosivelygay). The command I use for templating this is `ssri -d staging -t templates -o sites -c` (you will have an error if you run this in this dir as my emacs config files are not in templates - that is fine).
+If you want another example, go have a look at my personal website, which is using SSRI, the repository for that is [here](https://github.com/Sebagabones/mahoosivelygay). The command I use for templating this is `ssri -d staging -t templates -o sites -c` (you will have a warning if you run this on the linked repo as my emacs config files are not in the templates directory - that is fine).
 
 ### Why?
 I wanted something that worked without any dependencies, and didn't require learning a new markup style. The main goal for this was to be able to write pure plain HTML pages without using external libraries needing to be imported, and that didn't use JavaScript to load things in the browser. Could I have used something like NextJS for this? Probably - but I wanted something that would be very simple to use (albeit much less powerful).
@@ -53,7 +53,6 @@ I mean - the main use case was for my website lol. That said, it could be useful
 Basically, if you are wanting to use vanilla HTML/CSS in your website, and don't want to have to update a bunch of files everytime you change your footer, this might save you a bunch of time lol.
 
 ### Future plans.
-As mentioned above. I do want to add an an option that copies the all the contents of the entire input folder to the output folder, and only updates the HTML.
 Likewise, adding an argument that allows you to select with files types you want to search for include statements in is planned, as it would allow use with `.jsx` files, and possibly CSS files ect.
 Another future addition would be to add in the ablity to nest include statements in template files. This *might* already work, but I have not tested it, and there is the potential to get stuck in a endless loop, so for the time being I would not recommend include statements inside templates. 
  
