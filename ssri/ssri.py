@@ -356,7 +356,7 @@ async def copyAllFilesCaller(copyAll, inputFile, output):
 
     return(numWarnings)
 
-async def main():
+async def notMainAnyMore():
     args = parse_args(sys.argv[1:])
 
     templatesDir = args.inputFile  # This *should* be fine?
@@ -452,6 +452,8 @@ async def main():
     else:
         print(f"{printColour}{includeText} {numWarnings} errors encountered {CEND}")
 
+async def main():
+    await(notMainAnyMore())
 
 if __name__ == "__main__":
     asyncio.run(main())
