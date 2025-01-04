@@ -48,7 +48,9 @@ In theory, this should work with most other libraries/backends, which is another
 
 
 ### Use cases:
-I mean - the main use case was for my website lol. That said, it could be useful for anyone teaching/learning HTML, as it is a very simple concept that allows for (static) components to be reused across different pages, and reduces the learning new things load on anyone using it when compared to Gulp/Pug/React/Jinja. Basically, it allows for someone to learn the fundementals of HTML/CSS without needing a backend, but for them to still be able to save time without needing to copy HTML to different files.
+I mean - the main use case was for my website lol. That said, it could be useful for anyone teaching/learning HTML, as it is a very simple concept that allows for (static) components to be reused across different pages, and reduces the learning new things load on anyone using it when compared to Gulp/Pug/React/Jinja. Basically, it allows for someone to learn the fundementals of HTML/CSS without needing a backend, but for them to still be able to save time without needing to copy HTML to different files (and imagine after copying your footer to each of your files, you realise you need to rename the footer's class).
+
+Basically, if you are wanting to use vanilla HTML/CSS in your website, and don't want to have to update a bunch of files everytime you change your footer, this might save you a bunch of time lol.
 
 ### Future plans.
 As mentioned above. I do want to add an an option that copies the all the contents of the entire input folder to the output folder, and only updates the HTML.
