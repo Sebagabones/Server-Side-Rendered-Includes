@@ -23,12 +23,19 @@ Installation is easy, as SSRI is on PyPi, so simply run `pip install ssri`. Alte
 There is a simple example setup in the `Example/` folder, which shows a simple way of using `ssri`, so this is more of a run through of the argument options:
 
 `inputFile` is one or more files, or a directory (if the `-d` flag is passed).
+
 `-h` prints out the help menu.
+
 `-d` specifies a directory to run through recursively (this will grab all the files in any subdir, keep the order/layout).
+
 `-t` specifies the directory to grab the templates from, if it is not provided it grabs templates from the input directory (or if the input was not a directory it uses the current directory).
+
 `-o` is the directory to output the generated files to, if not provided it outputs to a directory `/output`.
+
 `--no-warnings` silences any warnings, and just runs without worrying if it overwrites any files.
+
 `-v` explains what the script is doing, turns on verbose mode
+
 `-c` copies the entire source (input) directory to the output directory, the `-d` flag must be used, and only one directory may be provided 
 
 #### Tips
