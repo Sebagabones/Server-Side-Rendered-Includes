@@ -59,10 +59,15 @@ I mean - the main use case was for my website lol. That said, it could be useful
 
 If you are wanting to use vanilla HTML/CSS in your website, and don't want to have to update a bunch of files everytime you change your footer, this might save you a bunch of time lol.
 
-### Future plans.
+### TODO:
+- Add webserver option with live reloading
+- Implement ripgrep libary if possible, instead of regular regex
+
+
+
+### Far Future plans (once uni gets less hectic). 
 Adding an argument that allows you to select which files types you want to search for include statements in is planned, as it would allow use with `.jsx` files, and possibly CSS files ect.
-Another future addition would be to add in the ablity to nest include statements in template files. This *might* already work, but I have not tested it, and there is the potential to get stuck in a endless loop, so for the time being I would not recommend include statements inside templates. 
- 
+Another future addition would be to add in the ablity to nest include statements in template files. This *might* already work, but I have not tested it, and there is the potential to get stuck in a endless loop, so for the time being I would not recommend include statements inside templates.  
 
 If there is demand/I have interest I may make this fully compatible with Apache SSI's, however for the time that isn't the case - if someone has good documentation on SSI options please let me know about it/send it to me, easiest way to do that is probably to raise an issue :)
 
